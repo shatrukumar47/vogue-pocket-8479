@@ -5,6 +5,8 @@ require("dotenv").config()
 app.use(express.json());
 
 const userRoute = require("./routes/userRoute")
+const {exerciseRouter}=require("./routes/exerciseRoute")
+const {yogaRoute}=require("./routes/yogaRoute")
 
 app.get("/",(req,res)=>{
 
