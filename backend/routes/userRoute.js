@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const blacklistModel = require("../models/blacklist")
 
-
 // {
 //     "name": "ttstgsr",
 //     "email": "sdggdfgs",
@@ -19,23 +18,22 @@ const blacklistModel = require("../models/blacklist")
 //Logout Functionality
 route.get("/logout", async (req, res) => {
 
-    const { authorization } = req.headers;
 
-    const token = authorization?.split(" ")[1] || null;
+    const accesstoken = req.cookies.token.accesstoken || null;
 
-    if (token) {
+    if (accesstoken) {
 
         let arr = await blacklistModel.find();
 
         if (arr.length === 0) {
 
-            await blacklistModel.insertMany({ blacklist: token })
+            await blacklistModel.insertMany({ blacklist: accesstoken })
             res.send({ "msg": "User has been logged out" })
         }
         else {
 
             await blacklistModel.updateMany({},
-                { $push: { blacklist: token } })
+                { $push: { blacklist: accesstoken } })
 
             res.send({ "msg": "User has been logged out" })
 
@@ -66,11 +64,21 @@ route.post("/login", async (req, res) => {
 
             if (verify) {
 
-                const token = jwt.sign({ user_id: User._id, username: User.username }, "pravin", { expiresIn: "1d" });
+                const accesstoken = jwt.sign({ user_id: User._id, username: User.username }, "pravin", { expiresIn: "1d" });
 
                 const refreshToken = jwt.sign({ user_id: User._id, username: User.username }, "pravin", { expiresIn: "2d" });
 
-                res.status(200).send({ "msg": "Login successfull", "token": token, "rToen": refreshToken })
+    
+                let tokens = {accesstoken, refreshToken}
+                res.cookie("token", tokens,{
+                    httpOnly: true
+                })
+
+
+
+                // console.log(req.cookies)
+
+                res.status(200).send({ "msg": "Login successfull", "token": accesstoken, "rToen": refreshToken })
             }
             else {
 
