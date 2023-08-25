@@ -19,7 +19,7 @@ export default class SimpleSlider extends Component {
       autoplaySpeed: 2000
     };
     return (
-        <Container minW={"8xl"}>
+        <Container minW={"7xl"}>
             <Slider {...settings}>
             <Box>
                 <Image width={"100%"} margin={"auto"} src={c3} />
