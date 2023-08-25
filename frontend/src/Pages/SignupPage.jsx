@@ -111,44 +111,46 @@ const SignupPage = () => {
         <FormControl>
           <FormLabel>Username : </FormLabel>
           <InputGroup>
-            <InputLeftElement pointerEvents="none">
-              <EmailIcon color="gray.300" />
+            <InputLeftElement pointerEvents="none" bg={"white"}>
+              <EmailIcon color="black" />
             </InputLeftElement>
             <Input
               type="text"
               name="username"
               value={user?.username}
-              placeholder="Username"
+              placeholder=" Username"
               onChange={handleChange}
             />
           </InputGroup>
         </FormControl>
+
         <FormControl>
           <FormLabel>Email : </FormLabel>
           <InputGroup>
-            <InputLeftElement pointerEvents="none">
-              <EmailIcon color="gray.300" />
+            <InputLeftElement pointerEvents="none" bg={"white"}>
+              <EmailIcon color="black" />
             </InputLeftElement>
             <Input
               type="email"
               name="email"
               value={user?.email}
-              placeholder="Email address"
+              placeholder=" Email address"
               onChange={handleChange}
             />
           </InputGroup>
         </FormControl>
+
         <FormControl>
           <FormLabel>Password : </FormLabel>
           <InputGroup>
-            <InputLeftElement pointerEvents="none">
-              <LockIcon color="gray.300" />
+            <InputLeftElement pointerEvents="none" bg={"white"}>
+              <LockIcon color="black" />
             </InputLeftElement>
             <Input
               pr="4.5rem"
               type={show ? "text" : "password"}
               name="password"
-              placeholder="Enter password"
+              placeholder=" Enter password"
               value={user?.password}
               onChange={handleChange}
             />
@@ -170,11 +172,12 @@ const SignupPage = () => {
             use special, numbers, min 8 and 1 uppercase characters
           </FormHelperText>
         </FormControl>
+
         <FormControl>
           <FormLabel>Confirm Password : </FormLabel>
           <InputGroup>
-            <InputLeftElement pointerEvents="none">
-              <LockIcon color="gray.300" />
+            <InputLeftElement pointerEvents="none" bg={"white"}>
+              <LockIcon color="black" />
             </InputLeftElement>
             <Input
               pr="4.5rem"
@@ -196,6 +199,7 @@ const SignupPage = () => {
             </InputRightElement>
           </InputGroup>
         </FormControl>
+    
         <Text alignSelf={"flex-end"}>
           Already a user?{" "}
           <Link to={"/login"}>
