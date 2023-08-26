@@ -3,7 +3,6 @@ import { LOGIN_REQUEST, LOGIN_SUCCESS } from "../actionTypes";
 const initialState = {
   isLoading: false,
   isAuth: false,
-  token: "",
   msg: "",
   isError: false,
 };
@@ -18,7 +17,6 @@ export const authReducer = (state = initialState, { type, payload }) => {
         ...state,
         isLoading: false,
         isAuth: true,
-        token: payload?.token,
         msg: payload?.msg,
       };
     }
