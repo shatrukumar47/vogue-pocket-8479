@@ -1,8 +1,14 @@
 const express = require("express");
+var cookieParser = require('cookie-parser');
 const app = express();
 const mongoose = require("mongoose")
 require("dotenv").config()
+
 app.use(express.json());
+
+
+app.use(cookieParser());
+
 
 const userRoute = require("./routes/userRoute")
 const {exerciseRouter}=require("./routes/exerciseRoute")
@@ -14,7 +20,7 @@ app.get("/",(req,res)=>{
 })
 
 app.use("/users",userRoute)
-
+app.use("/exercise",exerciseRouter)
 
 const connect = async()=>{
 

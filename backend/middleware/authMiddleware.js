@@ -4,20 +4,19 @@ const authMiddle = async (req, res, next) => {
 
     try {
 
-        const { authorization } = req.headers;
+        const accesstoken = req.cookies.token.accesstoken || null;
+        const rToken = req.cookies.token.refreshToken || null;
 
-        const token = authorization?.split(" ")[1] || null;
+        if (accesstoken) {
 
-        if (token) {
-
-            let existingToken = await blacklistModel.find({ blacklist: { $in: token } });
+            let existingToken = await blacklistModel.find({ blacklist: { $in: accesstoken } });
 
             if (existingToken.length > 0) {
 
-                res.status(400).send({ error: "Please login again" })
+                res.status(400).send({ error: "Please login again" });
             }
 
-            jwt.verify(token, "pravin", (err, decoded) => {
+            jwt.verify(accesstoken, "pravin", (err, decoded) => {
 
                 if (decoded) {
 
@@ -27,7 +26,29 @@ const authMiddle = async (req, res, next) => {
                 }
                 else {
 
-                    res.send({ "error": "Something went wrong" })
+
+                    jwt.verify(rToken, "pravin", (err, decoded) => {
+
+                        if (decoded) {
+                
+                            const accesstoken = jwt.sign({ user_id: User._id, username: User.username }, "pravin", { expiresIn: "1d" });
+
+                            jwt.verify(accesstoken, "pravin", (err, decoded) => {
+
+                                if (decoded) {
+                
+                                    req.userid = decoded.user_id;
+                                    req.username = decoded.username;
+                                    next();
+                                }
+                            })
+                
+                        }
+                        else {
+                
+                            res.send({ "error": "Please login Again" })
+                        }
+                    })
                 }
             })
         }
