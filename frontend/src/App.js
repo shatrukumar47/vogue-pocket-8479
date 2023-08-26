@@ -2,7 +2,7 @@ import "./App.css";
 import Navbar from "./Components/Navbar";
 import MainRoutes from "./Routes/MainRoutes";
 import Footer from "./Components/Footer";
-
+import Exercise from "./Pages/Exercise";
 
 function App() {
   return (
@@ -10,6 +10,7 @@ function App() {
       <Navbar />
       <MainRoutes />
       <Footer />
+      
     </div>
   );
 }
