@@ -78,7 +78,7 @@ route.post("/login", async (req, res) => {
 
                 // console.log(req.cookies)
 
-                res.status(200).send({ "msg": "Login successfull", "token": accesstoken, "rToen": refreshToken })
+                res.status(200).send({ msg: "Login successfull"})
             }
             else {
 
