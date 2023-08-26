@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import { login } from "../Redux/authReducer/action";
 const LoginPage = () => {
   const [show, setShow] = useState(false);
@@ -26,8 +26,14 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch()
 
+  //Toast Feature
   const toast = useToast();
   const positions = ["top"];
+
+  //Redux Store
+  const isLoading = useSelector((store)=> store.authReducer.isLoading);
+
+  
 
   const handleLogin = ()=>{
     let user = {
@@ -63,7 +69,7 @@ const LoginPage = () => {
             <FormLabel>Email : </FormLabel>
             <InputGroup>
               <InputLeftElement pointerEvents="none">
-                <EmailIcon color="gray.300" />
+                <EmailIcon color="white" />
               </InputLeftElement>
               <Input
                 type="email"
@@ -77,7 +83,7 @@ const LoginPage = () => {
             <FormLabel>Password : </FormLabel>
             <InputGroup>
               <InputLeftElement pointerEvents="none">
-                <LockIcon color="gray.300" />
+                <LockIcon color="white" />
               </InputLeftElement>
               <Input
                 pr="4.5rem"
@@ -104,6 +110,7 @@ const LoginPage = () => {
             colorScheme="blue"
             marginTop={"20px"}
             onClick={handleLogin}
+            isLoading={isLoading}
           >
             Log in
           </Button>
