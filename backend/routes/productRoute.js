@@ -6,7 +6,7 @@ const productRoute = express.Router();
 // GET REQUEST FOR ALL PRODUCTS
 
 productRoute.get('/',async(req,res)=>{
-    console.log(req.query)
+    // console.log(req.query)
     let q={}
     let s={}
     if(req.query.category){
@@ -28,10 +28,10 @@ productRoute.get('/',async(req,res)=>{
             s.price=-1
         }
     }
-    console.log(q)
+    // console.log(q)
     try{
         const products=await ProductModel.find(q).sort(s)
-        res.status(200).send({'data':products})
+        res.status(200).json({'data':products})
     }
     catch(error){
         res.status(400).send({"error":error})
@@ -41,6 +41,7 @@ productRoute.get('/',async(req,res)=>{
 // POST REQUEST TO ADD A NEW PRODUCT
 
 productRoute.post('/addProduct',async(req,res)=>{
+    // console.log(req.body)
     try{
         const newProduct=new ProductModel(req.body)
         await newProduct.save()
@@ -76,3 +77,8 @@ productRoute.delete('/delete/:productID',async(req,res)=>{
         res.status(400).send({"error":error})
     }
 })
+
+
+module.exports={
+    productRoute
+}
