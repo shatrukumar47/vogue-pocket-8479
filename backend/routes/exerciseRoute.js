@@ -9,7 +9,7 @@ const exerciseRouter=express.Router();
 exerciseRouter.get("/",authMiddle,async(req,res)=>{
 const {userID}=req.body;
     const data= await ExerciseModel.findOne({userID})
-    console.log(data);
+    // console.log(data);
     res.send({"data":data.dailyData})
 })
 

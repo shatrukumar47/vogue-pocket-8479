@@ -1,10 +1,19 @@
 const express = require("express");
-var cors = require('cors')
+
+
+var cookieParser = require('cookie-parser');
+
 const app = express();
 const mongoose = require("mongoose")
+const cors = require("cors")
 require("dotenv").config()
-app.use(cors())
+
 app.use(express.json());
+
+app.use(cors())
+
+app.use(cookieParser());
+
 
 const userRoute = require("./routes/userRoute")
 const {exerciseRouter}=require("./routes/exerciseRoute")
@@ -18,7 +27,7 @@ app.get("/",(req,res)=>{
 })
 
 app.use("/users",userRoute)
-
+app.use("/exercise",exerciseRouter)
 
 const connect = async()=>{
 

@@ -12,23 +12,36 @@ import {
   InputLeftElement,
   InputRightElement,
   Text,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {Link} from "react-router-dom";
-
+import {useDispatch} from "react-redux"
+import { login } from "../Redux/authReducer/action";
 const LoginPage = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch()
 
+  const toast = useToast();
+  const positions = ["top"];
 
   const handleLogin = ()=>{
     let user = {
       email, password
     }
-    console.log(user)
+    dispatch(login(user)).then((res)=>{
+      toast({
+        title: `Login successfull`,
+        position: positions[0],
+        isClosable: true,
+        duration: 1000,
+        status: "success",
+      });
+    })
   }
 
 
