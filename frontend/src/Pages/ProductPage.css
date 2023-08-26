@@ -1,0 +1,19 @@
+#container{
+    display: flex;
+    margin-top: 50px;
+    /* background-color:#00163A ; */
+}
+.sidebar{
+    width:21%;
+    position:sticky;
+    height: 23%;
+    top:20px;
+    border:2px solid salmon;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.product{
+    width:85%;
+    position:relative;
+    /* border:2px solid slateblue */
+}

@@ -1,0 +1,16 @@
+.hover-button {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.image-hover:hover .hover-button{
+    opacity: 1; 
+}
+
+.image-hover:hover .image {
+    transform: scale(1.05); 
+  }

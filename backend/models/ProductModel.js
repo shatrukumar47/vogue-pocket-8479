@@ -16,6 +16,8 @@ const productSchema=mongoose.Schema({
     rating:Number,
     category:String,
     brand:String,
+},{
+    versionKey:false
 })
 
 const ProductModel=mongoose.model('product',productSchema)
