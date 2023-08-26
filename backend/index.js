@@ -1,12 +1,16 @@
 const express = require("express");
+var cors = require('cors')
 const app = express();
 const mongoose = require("mongoose")
 require("dotenv").config()
+app.use(cors())
 app.use(express.json());
 
 const userRoute = require("./routes/userRoute")
 const {exerciseRouter}=require("./routes/exerciseRoute")
 const {yogaRoute}=require("./routes/yogaRoute")
+app.use("/exercise",exerciseRouter)
+app.use("/yoga",yogaRoute)
 
 app.get("/",(req,res)=>{
 
