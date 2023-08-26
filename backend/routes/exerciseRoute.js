@@ -13,7 +13,7 @@ const {userID}=req.body;
     res.send({"data":data.dailyData})
 })
 
-exerciseRouter.post("/add", authMiddle, async (req, res) => {
+exerciseRouter.post("/add",authMiddle,  async (req, res) => {
     const { userID, calories, exercise } = req.body;
 
     try {
@@ -25,7 +25,7 @@ exerciseRouter.post("/add", authMiddle, async (req, res) => {
             const existingDailyData = existingData.dailyData.get(formattedDate);
 
             if (existingDailyData) {
-                existingDailyData.exercise.push(...exercise);
+                existingDailyData.exercise.push(exercise);
                 existingDailyData.calories += calories;
                
             } else {
