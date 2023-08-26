@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { MdCheckCircle } from "react-icons/md";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Subscription = () => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const Subscription = () => {
         <Text fontSize={"35px"} fontWeight={"bold"} textAlign={"center"}>
           How Much Does It Cost?
         </Text>
-        <Text color={"gray.500"}>
+        <Text color={"gray.500"} textAlign={"center"}>
           PROFESSIONAL TRAINING FROM THE WORLD’S BEST COACHES STARTS FOR AS
           LITTLE AS ₹999/Month.
         </Text>
@@ -36,10 +36,15 @@ const Subscription = () => {
             padding={"30px"}
             margin={"20px 0px"}
             width={"500px"}
-            h={"580px"}
+            h={"590px"}
             justifyContent={"space-between"}
+            bg={"white"}
+            boxShadow={
+              "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;"
+            }
+            borderRadius={"10px"}
           >
-            <Box>
+            <Box textAlign={"center"}>
               <Text fontSize={"40px"}>Free</Text>
               <Text fontSize={"13px"}>NO STRINGS</Text>
               <Text as={"span"} fontWeight={"bold"} color={"green"}>
@@ -74,7 +79,13 @@ const Subscription = () => {
               </List>
             </Box>
             <Divider />
-            <Button colorScheme="blue" width={"250px"} onClick={()=> navigate("/signup")}>Join Now</Button>
+            <Button
+              colorScheme="blue"
+              width={"250px"}
+              onClick={() => navigate("/signup")}
+            >
+              Join Now
+            </Button>
           </VStack>
 
           <Box
@@ -85,6 +96,8 @@ const Subscription = () => {
             boxShadow={
               "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;"
             }
+            textAlign={"center"}
+            w={"500px"}
           >
             <Text fontSize={"40px"}>Coaching</Text>
             <Text fontSize={"13px"}>STARTING FROM</Text>

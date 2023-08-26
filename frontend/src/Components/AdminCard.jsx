@@ -8,30 +8,26 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
+import TruncatedText from "./TruncatedText";
 
-const AdminCard = () => {
+const AdminCard = ({item}) => {
   return (
     <VStack
       borderRadius={"20px"}
       width={"300px"}
-    //   alignItems={"center"}
-      border={"1px solid red"}
       padding={"10px"}
       spacing={"10px"}
       boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
     >
       <Image
-        src="https://img.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg?size=626&ext=jpg&ga=GA1.2.1257944628.1683352118&semt=sph"
-        borderRadius={"50%"}
+        src= {item?.image}
         width={"200px"}
-        border={"1px solid red"}
+        height={"250px"}
+        objectFit={"cover"}
       />
-      <Box width={"100%"} border={"1px solid red"}>
+      <Box width={"100%"}>
         <Text fontSize={"16px"} textAlign={"left"} color={"green"}>
-          12
-        </Text>
-        <Text fontSize={"20px"} textAlign={"left"}>
-          Shatrughan Kumar
+          ID : {item?._id}
         </Text>
         <Text
           fontSize={"16px"}
@@ -39,16 +35,22 @@ const AdminCard = () => {
           color={"gray.500"}
           fontWeight={"bold"}
         >
-          ass
+          {item?.brand}
+        </Text>
+          <TruncatedText text={item?.name} maxLength={20} />
+        <Text
+          fontSize={"16px"}
+          textAlign={"left"}
+          color={"green"}
+          fontWeight={"bold"}
+        >
+          ₹{item?.price}
         </Text>
         <Text fontSize={"16px"} textAlign={"left"} color={"gray.500"}>
-         vvcvcd
+         Category : {item?.category}
         </Text>
         <Text fontSize={"16px"} textAlign={"left"} color={"gray.500"}>
-          fvfdfdf
-        </Text>
-        <Text fontSize={"16px"} textAlign={"left"} color={"gray.500"}>
-          dsdsdsds
+          Rating : {item?.rating}
         </Text>
       </Box>
       <HStack spacing={"20px"}>
