@@ -1,5 +1,6 @@
 import loginImg from "../Images/loginImg.jpg";
 import React, { useState } from "react";
+
 import {
   Box,
   Button,
@@ -18,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const initialState = {
   username: "",
@@ -67,7 +69,11 @@ const SignupPage = () => {
           });
         } else {
           //dispatcher goes here
+          axios.post(`http://localhost:8080/users/register`,user).then((res)=>{
+            console.log(res.data)
+          })
           console.log(user);
+          
           toast({
             title: `Welcome to FitQuest, Shatrughan`,
             position: positions[0],

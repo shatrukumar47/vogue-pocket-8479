@@ -1,6 +1,9 @@
 const express = require("express");
+var cookieParser = require('cookie-parser');
+
 const app = express();
 const mongoose = require("mongoose")
+
 const cors=require('cors')
 require("dotenv").config()
 
@@ -9,12 +12,27 @@ app.use(cors())
 //     res.header('Access-Control-Allow-Origin', '*');
 //     next();
 // });
+
+const cors = require("cors")
+require("dotenv").config()
+
+
 app.use(express.json());
+
+app.use(cors())
+
+app.use(cookieParser());
+
 
 const userRoute = require("./routes/userRoute")
 const {exerciseRouter}=require("./routes/exerciseRoute")
 const {yogaRoute}=require("./routes/yogaRoute")
+
 const {productRoute}=require('./routes/productRoute')
+
+app.use("/exercise",exerciseRouter)
+app.use("/yoga",yogaRoute)
+
 
 app.get("/",(req,res)=>{
 
@@ -22,7 +40,11 @@ app.get("/",(req,res)=>{
 })
 
 app.use("/users",userRoute)
+
 app.use("/products",productRoute)
+
+
+app.use("/exercise",exerciseRouter)
 
 
 const connect = async()=>{

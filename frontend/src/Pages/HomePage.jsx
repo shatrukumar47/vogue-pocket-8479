@@ -19,6 +19,8 @@ import yogaAnime from "../Images/yogaAnime.gif";
 import runningAnime from "../Images/runningAnime.gif";
 import pushupAnime from "../Images/pushupAnime.gif";
 import subscribeAnime from "../Images/subscribeAnime.gif";
+import Subscription from "../Components/Subscription";
+import FeaturesCard from "../Components/FeaturesCard";
 
 //#00163A
 
@@ -248,6 +250,10 @@ const HomePage = () => {
           </Stack>
         </Container>
       </Box>
+
+      <Subscription />
+
+      <FeaturesCard />
 
       <VStack
         bgImage={`url(https://img.freepik.com/free-vector/half-tone-blue-abstract-background-with-text-space_1017-41428.jpg?size=626&ext=jpg&ga=GA1.2.1257944628.1683352118&semt=ais)`}
