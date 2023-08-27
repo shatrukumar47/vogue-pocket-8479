@@ -1,3 +1,5 @@
+
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import {
@@ -12,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { Card, AspectRatio, CardBody, CardFooter, Stack, Text, Heading, Divider, Button, ButtonGroup, Input } from '@chakra-ui/react';
 
-const SingleExercise = ({ el }) => {
+const UserSingleExercise = ({ el }) => {
   const { calories, category, duration, title, url } = el;
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -95,4 +97,4 @@ axios.post("http://localhost:8080/exercise/add",{exercise:url,calories:calorieCo
   );
 };
 
-export default SingleExercise;
+export default UserSingleExercise;

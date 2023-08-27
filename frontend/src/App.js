@@ -2,19 +2,15 @@ import "./App.css";
 import Navbar from "./Components/Navbar";
 import MainRoutes from "./Routes/MainRoutes";
 import Footer from "./Components/Footer";
-import Cart from "./Pages/Cart";
-import SingleProducts from "./Pages/SingleProducts";
-
-
+import Exercise from "./Pages/Exercise"
 
 function App() {
   return (
     <div className="App">
-      {/* <Cart/> */}
-      {/* <SingleProducts/> */}
       <Navbar />
       <MainRoutes />
       <Footer />
+      <Exercise />
     </div>
   );
 }
