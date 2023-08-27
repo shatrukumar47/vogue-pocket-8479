@@ -34,7 +34,7 @@ const Product = () => {
         columns={{ sm: 1, md: 2, lg: 3 }}
       >
         {data.map((ele) => (
-          <ProductCard {...ele} />
+          <ProductCard key={ele?._id} {...ele} />
         ))}
       </SimpleGrid>
     </>

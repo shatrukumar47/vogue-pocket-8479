@@ -24,7 +24,7 @@ const Dashboard = () => {
     <Container maxW={"8xl"} border={"1px solid green"} h={"90vh"}>
       <HStack spacing={"20px"}>
         <DashboardSidebar handleProfileTabs={handleProfileTabs} />
-        <Box>
+        <Box border={"1px solid red"} width={"100%"}>
           {tabs.profile ? <MyProfile /> : tabs.TandC ? <TermsAndCondition /> : tabs.PP ? <PrivacyPolicy /> : <Exercises />}
         </Box>
       </HStack>
