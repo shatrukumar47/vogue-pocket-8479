@@ -9,6 +9,7 @@ export const login = (user)=> async (dispatch) => {
     dispatch({type:LOGIN_REQUEST})
     try {
       const res = await axios.post(`http://localhost:8080/users/login`,user);
+      console.log(res)
       dispatch({type:LOGIN_SUCCESS, payload:res?.data})
 
       return res?.data?.accessToken;
@@ -23,10 +24,10 @@ export const login = (user)=> async (dispatch) => {
 //Logout
 export const Logout = () => async (dispatch)=>{
   dispatch({type: LOGOUT_SUCCESS});
-  try {
-    const res = await axios.get(`http://localhost:8080/users/logout`)
-    console.log(res)
-  } catch (error) {
-    console.log(error)
-  }
+  // try {
+  //   const res = await axios.get(`http://localhost:8080/users/logout`)
+  //   console.log(res)
+  // } catch (error) {
+  //   console.log(error)
+  // }
 }

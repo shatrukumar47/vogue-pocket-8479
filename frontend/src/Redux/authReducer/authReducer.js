@@ -6,6 +6,7 @@ const initialState = {
   isAuth: getLS("auth")?.isAuth || false,
   user: getLS("auth")?.username || "",
   msg: "",
+  userid : getLS("auth")?.userid || "",
   isError: false,
 };
 
@@ -19,9 +20,10 @@ export const authReducer = (state = initialState, { type, payload }) => {
         let user = {
           isAuth: true,
           username: payload?.user,
+          userid: payload?.userid
         }
         setLS("auth", user);
-        return {...state, isLoading: false, isAuth: true, user:payload?.user, msg: payload?.msg}
+        return {...state, isLoading: false, isAuth: true, user:payload?.user, msg: payload?.msg, userid: payload?.userid}
       }else{
         return {...state, isLoading: false, isAuth: false, msg: payload?.msg}
       }

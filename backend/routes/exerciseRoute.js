@@ -4,16 +4,19 @@ const authMiddle = require("../middleware/authMiddleware");
 const exerciseRouter = express.Router();
 
 //get exercise
-exerciseRouter.get("/", authMiddle, async (req, res) => {
+exerciseRouter.post("/", async (req, res) => {
   const { userid } = req.body;
-
+ 
   const data = await ExerciseModel.findOne({ userid });
-  console.log(data);
-  res.send({ data: data.dailyData });
+  if(data){
+    res.send({ data: data.dailyData });
+  }else{
+    res.status(200).send({"msg": "Login Please !!"})
+  }
 });
 
 // add exercise
-exerciseRouter.post("/add", authMiddle, async (req, res) => {
+exerciseRouter.post("/add", async (req, res) => {
   const { userid, calories, exercise, targetCalories } = req.body;
   console.log(userid);
   try {

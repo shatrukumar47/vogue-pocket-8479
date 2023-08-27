@@ -17,7 +17,7 @@ const Exercise = () => {
 
   return (
     <div>
-      <Grid templateColumns="repeat(3, 1fr)" gap={4}>
+      <Grid templateColumns="repeat(3, 1fr)" gap={4} width={"500px"} bg={"red"}>
         {exercise?.map((el) => (
           <GridItem key={el?._id}>
             <SingleExercise el={el} />
