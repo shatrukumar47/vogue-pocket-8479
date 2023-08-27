@@ -14,20 +14,16 @@ import {
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import "./ProductCard.css";
-export const ProductCard = ({
-  brand,
-  category,
-  image,
-  name,
-  price,
-  rating,
-  id,
-}) => {
-  // console.log(brand,category,image,name,price,rating)
+import { useNavigate } from "react-router-dom";
+export const ProductCard = ({brand,image,name,price,rating,id,}) => {
+  const navigate=useNavigate()
+   const handleRedirect=()=>{
+       navigate()
+   }
   return (
     <Card
       maxW="sm"
-      boxShadow={"rgba(0, 0, 0, 0.35) 0px 5px 15px"}
+      boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
       className="image-hover"
      
     >
@@ -48,8 +44,9 @@ export const ProductCard = ({
           fontWeight={"bold"}
           color={"red.500"}
           className="hover-button"
+          onClick={handleRedirect}
         >
-          BUY NOW
+          View Product
         </Button>
         <Stack mt="2" spacing="3">
           <Text color={"#00163A"} fontWeight={"semibold"} size="xs">
@@ -63,10 +60,10 @@ export const ProductCard = ({
       <Divider marginTop={"-10px"} />
       <CardFooter>
         <ButtonGroup marginTop={"-15px"} marginBottom={"-5px"}>
-          <Text marginRight={"140px"} color="green.500" fontSize="xl">
-            {`₹ ${price}`}
+          <Text marginRight={"100%"} color="green.500" fontSize="xl">
+            {`₹${price}`}
           </Text>
-          <Box display="flex" alignItems="center">
+          <Box className="rating"  alignItems="center">
             {Array.from({ length: Math.floor(rating) }).map((_, index) => (
               <StarIcon key={index} color="red.500" />
             ))}
@@ -85,6 +82,9 @@ export const ProductCard = ({
                 />
               )
             )}
+          </Box>
+          <Box className="mobilerating">
+            {rating} <StarIcon color="red.500" marginLeft={'3px'} marginTop={'5px'} />
           </Box>
         </ButtonGroup>
       </CardFooter>

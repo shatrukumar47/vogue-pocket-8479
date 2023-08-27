@@ -1,5 +1,6 @@
 #container{
     display: flex;
+    margin-top: 10px;
     border: 1px solid red;
     width: 80%;
     margin: 50px auto;
@@ -8,14 +9,14 @@
 .sidebar{
     width:21%;
     position:sticky;
-    height: 23%;
+    height: 50%;
     top:20px;
-    border:2px solid salmon;
+   
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .product{
     width:85%;
     position:relative;
-    /* border:2px solid slateblue */
+    
 }
