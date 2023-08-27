@@ -6,12 +6,12 @@ const exerciseRouter = express.Router();
 //get exercise
 exerciseRouter.post("/", async (req, res) => {
   const { userid } = req.body;
- 
+
   const data = await ExerciseModel.findOne({ userid });
-  if(data){
+  if (data) {
     res.send({ data: data.dailyData });
-  }else{
-    res.status(200).send({"msg": "Login Please !!"})
+  } else {
+    res.status(200).send({ msg: "Login Please !!" });
   }
 });
 
@@ -83,12 +83,13 @@ function getFormattedDate(date) {
 }
 
 //delete exercise
-exerciseRouter.delete("/delete/:id", async (req, res) => {
+exerciseRouter.post("/delete/:id", async (req, res) => {
   try {
     const { id } = req.params;
+
     const { exerciseId } = req.body; // Assuming you want to remove the specified exercise
 
-    const exerciseDocument = await ExerciseModel.findById(id);
+    const exerciseDocument = await ExerciseModel.findOne({ userid: id });
 
     if (!exerciseDocument) {
       return res
@@ -99,9 +100,8 @@ exerciseRouter.delete("/delete/:id", async (req, res) => {
     const formattedDate = getFormattedDate(new Date()); // Pass the current date
     const exerciseArray =
       exerciseDocument.dailyData.get(formattedDate).exercise;
-    console.log("Total exercise :: " + exerciseArray);
     let exercise = exerciseArray.filter((el) => el._id == exerciseId)[0];
-    console.log(exercise);
+
     const caloriesBurned =
       exerciseDocument.dailyData.get(formattedDate).calories -
       exercise.calories;
@@ -111,7 +111,7 @@ exerciseRouter.delete("/delete/:id", async (req, res) => {
       exerciseArray.findIndex((a) => a._id === exercise._id),
       1
     );
-    console.log("after delete :" + exerciseArray);
+
     exerciseDocument.dailyData.get(formattedDate).exercise = exerciseArray;
     await exerciseDocument.save();
 

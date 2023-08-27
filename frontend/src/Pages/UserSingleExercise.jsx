@@ -1,15 +1,7 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-} from "@chakra-ui/react";
+
 import {
   Card,
   AspectRatio,
@@ -20,48 +12,71 @@ import {
   Divider,
   Button,
   ButtonGroup,
+  HStack,
+  Image,
 } from "@chakra-ui/react";
+import { FaTrashAlt } from "react-icons/fa";
 
-const UserSingleExercise = ({ el }) => {
+const UserSingleExercise = ({ el, date, onExerciseRemoved }) => {
   const { calories, _id, url } = el;
-  console.log(el);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [timeInput, setTimeInput] = useState("");
-  const [calorieCount, setCalorieCount] = useState(0);
+  //Redux
+  const userid = useSelector((store) => store.authReducer.userid);
 
-  const handleSave = () => {
+  const handleRemove = () => {
     axios
-      .post("http://localhost:8080/exercise/delete/", {
-        exercise: url,
-        calories: calorieCount,
+      .post(`http://localhost:8080/exercise/delete/${userid}`, {
+        exerciseId: _id,
       })
-      .then((res) => onClose());
+      .then(() => {
+        onExerciseRemoved(_id, getFormattedDate(new Date())); // Call the callback after successful removal
+      })
+      .catch((error) => {
+        console.error("Error deleting exercise:", error);
+      });
+  };
+
+  function getFormattedDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
+  //handleVideoIcon
+  const handleVideoIcon = () => {
+    window.open(url, "_blank");
   };
 
   return (
-    <div>
-      <Card maxW="sm">
-        <CardBody>
-          <AspectRatio maxW="560px" ratio={1}>
-            <iframe title="naruto" src={url} allowFullScreen />
-          </AspectRatio>
-          <Stack mt="6" spacing="3">
-            <Text color="blue.600" fontSize="2xl">
-              Calories burn by you: {calories}
-            </Text>
-          </Stack>
-        </CardBody>
-        <Divider />
-        <CardFooter>
-          <ButtonGroup spacing="2">
-            <Button variant="solid" colorScheme="blue">
-              Remove
-            </Button>
-          </ButtonGroup>
-        </CardFooter>
-      </Card>
-    </div>
+    <HStack
+      width={"100%"}
+      justifyContent={"space-between"}
+      boxShadow={
+        "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset"
+      }
+      paddingRight={"20px"}
+    >
+      <HStack spacing={"20px"}>
+        <Image
+          cursor={"pointer"}
+          onClick={handleVideoIcon}
+          w={"50px"}
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeHWLyaSJh_FHHKfVYk2Uo5lsfCprd1H9E0Q&usqp=CAU"
+        />
+        <Text color="green" fontSize="17px">
+          🔥 Total Burned Calories = {calories}
+        </Text>
+      </HStack>
+      {getFormattedDate(new Date()) == date && (
+        <FaTrashAlt
+          fontSize={"20px"}
+          color="red"
+          onClick={handleRemove}
+          cursor={"pointer"}
+        />
+      )}
+    </HStack>
   );
 };
 

@@ -16,6 +16,11 @@ yogaRoute.get("/", async (req, res) => {
 
     const totalCount = await YogaModel.countDocuments();
     const totalPages = Math.ceil(totalCount / limit);
+
+    if (page > totalPages) {
+      return res.status(400).json({ error: "Invalid page number" });
+    }
+
     //Fetch
     const data = await YogaModel.find().skip(skip).limit(limit);
     res.status(200).send({ data, totalPages });
