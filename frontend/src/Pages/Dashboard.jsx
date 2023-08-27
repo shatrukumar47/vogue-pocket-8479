@@ -4,7 +4,8 @@ import { Box, Container, HStack } from "@chakra-ui/react";
 import MyProfile from "../DashboardSidebarComponents/MyProfile";
 import TermsAndCondition from "../DashboardSidebarComponents/TermsAndCondition";
 import PrivacyPolicy from "../DashboardSidebarComponents/PrivacyPolicy";
-import Exercises from "../DashboardSidebarComponents/Exercises";
+import Exercise from "./Exercise";
+import UserExercise from "./UserExercise";
 
 const Dashboard = () => {
   const [tabs, setTabs] = useState({
@@ -12,6 +13,7 @@ const Dashboard = () => {
     exercise: true,
     TandC: false,
     PP: false,
+    records: false
   });
 
   //handling Tabs
@@ -20,11 +22,11 @@ const Dashboard = () => {
   }
 
   return <Box>
-    <Container maxW={"8xl"} border={"1px solid green"} h={"90vh"}>
-      <HStack spacing={"20px"}>
+    <Container maxW={"8xl"} h={"855px"}>
+      <HStack spacing={"20px"} alignItems={"flex-start"}>
         <DashboardSidebar handleProfileTabs={handleProfileTabs} />
-        <Box border={"1px solid red"} width={"400px"}>
-          {tabs.profile ? <MyProfile /> : tabs.TandC ? <TermsAndCondition /> : tabs.PP ? <PrivacyPolicy /> : <Exercises />}
+        <Box paddingRight={"30px"} borderRight={"2px solid #00163A"} width={"70%"} height={"855px"}>
+          {tabs.profile ? <MyProfile /> : tabs.TandC ? <TermsAndCondition /> : tabs.PP ? <PrivacyPolicy /> : tabs.records ? <UserExercise /> : <Exercise />}
         </Box>
       </HStack>
     </Container>

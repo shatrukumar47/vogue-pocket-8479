@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Box, Text, Flex, Grid, GridItem, Button } from "@chakra-ui/react";
+import { Box, Text, Flex, Grid, GridItem, Button, VStack } from "@chakra-ui/react";
 import UserSingleExercise from "./UserSingleExercise";
 import { useSelector } from "react-redux";
+import { FaArrowDown } from "react-icons/fa";
 
 const UserExercise = () => {
   const [exerciseData, setExerciseData] = useState({});
@@ -18,7 +19,6 @@ const UserExercise = () => {
     axios
       .post("http://localhost:8080/exercise/", requestData)
       .then((res) => {
-        console.log(res);
         if(res?.data?.data){
             setExerciseData(res.data.data);
         }
@@ -44,27 +44,36 @@ const UserExercise = () => {
     }));
   };
 
+  const handleExerciseRemoved = (exerciseId, date) => {
+    setExerciseData((prevData) => {
+      const updatedData = { ...prevData };
+      
+      updatedData[date].exercise = updatedData[date].exercise.filter(
+        (exercise) => exercise._id !== exerciseId
+      );
+      return updatedData;
+    });
+  };
+
   return (
     <div>
-      {Object.keys(exerciseData).map((date) => {
+      {Object.keys(exerciseData).reverse().map((date) => {
         const { calories, exercise, targetCalories, show } = exerciseData[date];
 
         return (
-          <Box key={date} borderWidth="1px" borderRadius="lg" p={4} my={2}>
-            <Flex justifyContent="space-between">
-              <Text>Date: {date}</Text>
-              <Text>Calories: {calories}</Text>
-              {targetCalories && <Text>Target Calories: {targetCalories}</Text>}
-              <Button onClick={() => handleShow(date)}>show Exercise</Button>
+          <Box key={date} borderWidth="1px" borderRadius="lg" p={2} my={2} border={"1px solid teal"}>
+            <Flex justifyContent="space-between" alignItems={"center"} marginBottom={"5px"}>
+              <Text color={"#028091"} fontWeight={"bold"}>Date: {date}</Text>
+              <Text color={"green"} fontSize={"20px"} fontWeight={"bold"}>Burned Calories = {calories}</Text>
+              {targetCalories && <Text color={"orange"} fontSize={"20px"} fontWeight={"bold"}>Target Calories = {targetCalories}</Text>}
+              <Button rightIcon={<FaArrowDown />} colorScheme="orange" onClick={() => handleShow(date)} >Show Exercise</Button>
             </Flex>
             {exercise && show && (
-              <Grid templateColumns="repeat(3, 1fr)" gap={4}>
+              <VStack marginTop={"10px"}>
                 {exercise?.map((el, i) => (
-                  <GridItem key={i}>
-                    <UserSingleExercise el={el} />
-                  </GridItem>
+                    <UserSingleExercise el={el} date={date} onExerciseRemoved={handleExerciseRemoved} />
                 ))}
-              </Grid>
+              </VStack>
             )}
           </Box>
         );
@@ -73,4 +82,4 @@ const UserExercise = () => {
   );
 };
 
-export default UserExercise;
+export default UserExercise;
