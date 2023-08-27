@@ -1,9 +1,9 @@
-import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS } from "../actionTypes";
+import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../actionTypes";
 import axios from "axios";
 
 
 
-
+//Login
 export const login = (user)=> async (dispatch) => {
   try {
     dispatch({type:LOGIN_REQUEST})
@@ -19,3 +19,14 @@ export const login = (user)=> async (dispatch) => {
     console.log(error)
   }
 };
+
+//Logout
+export const Logout = () => async (dispatch)=>{
+  dispatch({type: LOGOUT_SUCCESS});
+  try {
+    const res = await axios.get(`http://localhost:8080/users/logout`)
+    console.log(res)
+  } catch (error) {
+    console.log(error)
+  }
+}

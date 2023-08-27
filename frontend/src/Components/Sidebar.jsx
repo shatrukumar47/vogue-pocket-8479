@@ -83,7 +83,6 @@ export const Sidebar = () => {
     setRating(newRating);
   };
   
-   console.log('Rating',rating)
   // <----------------------------------Sorting----------------------------------------------------->
 
   const handlesort=(e)=>{
@@ -94,7 +93,7 @@ const handleReset=()=>{
   setCategory([])
   setBrand([])
   setsort("")
-
+  setRating([]);
 }
   return (
     <>

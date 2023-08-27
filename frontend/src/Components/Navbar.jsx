@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Center, Container, HStack, Image, Text } from "@chakra-ui/react";
-import { Avatar, Box, Button, Container, HStack, Image, Text } from "@chakra-ui/react";
+import { Box, Avatar, Button, Center, Container, HStack, Image, Text } from "@chakra-ui/react";
 import logo from "../Images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteLS } from "../utils/localStorage";
+import { Logout } from "../Redux/authReducer/action";
 
 const boxshadow =
   "rgb(255, 255, 255) 0px 3px 3px -1px, rgba(255, 255, 255, 0.974) 0px 2px 3px -1px";
@@ -15,6 +15,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   //Redux
+  const dispatch = useDispatch();
   const isAuth = useSelector((store)=> store.authReducer.isAuth)
   const username = useSelector((store)=> store.authReducer.user)
 
@@ -29,8 +30,8 @@ const Navbar = () => {
   //handleLogout
   const handleLogout = ()=>{
     console.log("Logout")
-    deleteLS("auth");
-    return navigate("/", {required: true})
+    dispatch(Logout());
+    navigate("/", {replace: true});
   }
 
 
@@ -123,11 +124,11 @@ const Navbar = () => {
             </Button>
           </HStack>
 
-          <Link to="/cart">
-          <Center fontSize="15px" flexDirection="column" cursor="pointer">
-            <AiOutlineShoppingCart size="35px"/>          
-          </Center>
-        </Link>
+        //   <Link to="/cart">
+        //   <Center fontSize="15px" flexDirection="column" cursor="pointer">
+        //     <AiOutlineShoppingCart size="35px"/>          
+        //   </Center>
+        // </Link>
           }
           
         </HStack>

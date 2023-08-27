@@ -6,7 +6,6 @@ import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 
 let products = JSON.parse(localStorage.getItem("cartdata")) || [];
-console.log(products)
 let total = 0;
 for(let i=0;i<products.length;i++){
 

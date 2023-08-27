@@ -9,7 +9,7 @@ productRoute.get("/", async (req, res) => {
   let s = {};
   
   let page = parseInt(req.query.page) || 1;
-  let limit = parseInt(req.query.limit) || 10;
+  let limit = parseInt(req.query.limit);
 
   if (req.query.category) {
     q.category = req.query.category;
@@ -26,32 +26,16 @@ productRoute.get("/", async (req, res) => {
     } else if (req.query.sort === "desc") {
       s.price = -1;
     }
-
-    //let skip=req.query.limit*req.query.skip
-    // console.log(q)
-//     try{
-//         const products=await ProductModel.find(q).sort(s).skip(skip).limit(req.query.limit)
-//         res.status(200).json({'data':products})
-//     }
-//     catch(error){
-//         res.status(400).send({"error":error})
-//     }
-// })
-
   }
+
   try {
     //Pagination
     const totalProducts = await ProductModel.countDocuments(q);
     const totalPages = Math.ceil(totalProducts / limit);
 
-    const products = await ProductModel.find(q)
-      .sort(s)
-      .skip((page - 1) * limit)
-      .limit(limit);
-
-    res
-      .status(200)
-      .json({ page: page, totalPages: totalPages, data: products });
+    const products = await ProductModel.find(q).sort(s).skip((page - 1) * limit).limit(limit);
+    res.status(200).json({ page: page, totalPages: totalPages, data: products });
+    
   } catch (error) {
     res.status(400).send({ error: error });
   }
