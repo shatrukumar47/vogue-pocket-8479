@@ -9,9 +9,7 @@ import {
 import axios from "axios";
 
 //GET Product
-export const getProductAction =
-  (page = 1, limit = 12) =>
-  (dispatch) => {
+export const getProductAction =(page = 1, limit = 12) => (dispatch) => {
     dispatch({ type: PRODUCT_REQUEST });
     axios
       .get(`http://localhost:8080/products?page=${page}&limit=${limit}`)
@@ -22,7 +20,7 @@ export const getProductAction =
         console.log(error);
         dispatch({ PRODUCT_FAILURE });
       });
-  };
+};
 
 //AddProduct
 export const productAddAction = (product) => (dispatch) => {

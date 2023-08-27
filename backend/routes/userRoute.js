@@ -11,31 +11,18 @@ route.get("/logout", async (req, res) => {
 
   if (accesstoken) {
     let arr = await blacklistModel.find();
-    const accesstoken = req.cookies.token.accesstoken || null;
-    if (accesstoken) {
-        let arr = await blacklistModel.find();
-        if (arr.length === 0) {
-            await blacklistModel.insertMany({ blacklist: accesstoken })
-            res.clearCookie("token")
-            res.send({ "msg": "User has been logged out" })
-        }
-        else {
-            await blacklistModel.updateMany({},
-                { $push: { blacklist: accesstoken } })
-            res.clearCookie("token")
-            res.send({ "msg": "User has been logged out" })
-        }
-    }
-    else {
-        res.send("Login First")
+
     if (arr.length === 0) {
       await blacklistModel.insertMany({ blacklist: accesstoken });
+      res.clearCookie("token");
       res.send({ msg: "User has been logged out" });
     } else {
       await blacklistModel.updateMany(
         {},
         { $push: { blacklist: accesstoken } }
       );
+
+      res.clearCookie("token");
       res.send({ msg: "User has been logged out" });
     }
   } else {
@@ -72,12 +59,16 @@ route.post("/login", async (req, res) => {
 
         // console.log(req.cookies)
 
-        res.status(200).send({ msg: "Logged-in Successfully" , accessToken: accesstoken, user: User?.username});
+        res.status(200).send({
+          msg: "Logged-in Successfully",
+          accessToken: accesstoken,
+          user: User?.username,
+        });
       } else {
         res.status(200).send({ msg: "Wrong Password !!" });
       }
     } else {
-      res.status(200).send({ msg:"User Not Found !!"});
+      res.status(200).send({ msg: "User Not Found !!" });
     }
   } catch (error) {
     res.status(400).send(error);
@@ -92,7 +83,11 @@ route.post("/register", async (req, res) => {
     const User = await user.findOne({ email });
     const newpass = await bcrypt.hash(password, 5);
     if (User === null) {
-      user.create({ ...req.body, password: newpass, confirm_password: newpass});
+      user.create({
+        ...req.body,
+        password: newpass,
+        confirm_password: newpass,
+      });
       res.status(200).send({ msg: "The new user has been registered" });
     } else {
       res.send({ msg: "The user already exist" });

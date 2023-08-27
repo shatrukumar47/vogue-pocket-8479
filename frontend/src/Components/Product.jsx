@@ -1,32 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useEffect } from "react";
-import {
-  RequestAction,
-  RequestError,
-  RequestSuccess,
-  getProductAction,
-} from "../Redux/productReducer/action";
-import {SimpleGrid,Heading} from "@chakra-ui/react";
 import { SimpleGrid } from "@chakra-ui/react";
 import { ProductCard } from "./ProductCard";
 import { useSearchParams } from "react-router-dom";
-
+import {
+  PRODUCT_FAILURE,
+  PRODUCT_REQUEST,
+  PRODUCT_SUCCESS,
+} from "../Redux/actionTypes";
+import Loading from "./Loading";
 
 const Product = () => {
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
-  let Rating=(searchParams.getAll("rating")).map(Number)
-  let [totalPage,setTotalPage]=useState(0)
- 
-  console.log(Rating[Rating.length-1],"Rating")
- 
+  let Rating = searchParams.getAll("rating").map(Number);
+
   let paramsObj = {
     params: {
       category: searchParams.getAll("category"),
       brand: searchParams.getAll("brand"),
-      rating: Rating[Rating.length-1],
+      rating: Rating[Rating.length - 1],
       sort: searchParams.get("sort"),
     },
   };
@@ -39,37 +33,24 @@ const Product = () => {
   }, shallowEqual);
 
   const FetchData = () => {
-    dispatch(RequestAction());
+    dispatch({ type: PRODUCT_REQUEST });
     axios
-      .get("http://localhost:8080/products",paramsObj)
+      .get("http://localhost:8080/products", paramsObj)
       .then((res) => {
-        
-        // setTotalPage(res.data.data.length)
-        dispatch(RequestSuccess(res.data.data));
+        dispatch({ type: PRODUCT_SUCCESS, payload: res?.data });
       })
       .catch((err) => {
-        console.log(err);
-        dispatch(RequestError());
+        dispatch({ type: PRODUCT_FAILURE });
       });
   };
-  console.log(totalPage)
+
   useEffect(() => {
     FetchData(paramsObj);
   }, [searchParams]);
-  console.log(data);
 
-//   if(isLoading){
-//     return(
-//     <>
-//         <Heading as='h4'marginLeft={'40px'} size='lg'>Loading...</Heading>
-//       <img style={{margin:'auto'}} src='https://i.pinimg.com/originals/8a/6b/19/8a6b1994f66c2d5e6967ad1655300762.gif'></img>
-      
-//     </>
-//     )
-//   }
-  useEffect(() => {
-    dispatch(getProductAction());
-  }, []);
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -79,10 +60,10 @@ const Product = () => {
         spacing={8}
         columns={{ sm: 1, md: 2, lg: 3 }}
       >
-        {data.map((ele) => (
+        {data?.map((ele) => (
           <ProductCard key={ele?._id} {...ele} />
         ))}
-      </SimpleGrid> 
+      </SimpleGrid>
     </>
   );
 };

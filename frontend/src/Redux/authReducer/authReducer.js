@@ -1,9 +1,10 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS } from "../actionTypes";
+import { deleteLS, getLS, setLS } from "../../utils/localStorage";
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../actionTypes";
 
 const initialState = {
   isLoading: false,
-  isAuth: false,
-  user: "",
+  isAuth: getLS("auth")?.isAuth || false,
+  user: getLS("auth")?.username || "",
   msg: "",
   isError: false,
 };
@@ -15,6 +16,11 @@ export const authReducer = (state = initialState, { type, payload }) => {
     }
     case LOGIN_SUCCESS: {
       if(payload?.accessToken){
+        let user = {
+          isAuth: true,
+          username: payload?.user,
+        }
+        setLS("auth", user);
         return {...state, isLoading: false, isAuth: true, user:payload?.user, msg: payload?.msg}
       }else{
         return {...state, isLoading: false, isAuth: false, msg: payload?.msg}
@@ -22,6 +28,11 @@ export const authReducer = (state = initialState, { type, payload }) => {
     }
     case LOGIN_REQUEST: {
       return { ...state, isLoading: false, isError: true };
+    }
+
+    case LOGOUT_SUCCESS: {
+      deleteLS("auth");
+      return initialState;
     }
     default:
       return initialState;

@@ -34,7 +34,8 @@ export const ProductCard = ({brand,image,name,price,rating,id,}) => {
           height={"280px"}
           borderRadius="lg"
           className="image"
-          marginTop={"-10px"}
+          margin={"-10px auto 10px auto"}
+          objectFit={"cover"}
           
         />
         <Button
