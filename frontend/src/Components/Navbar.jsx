@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Container, HStack, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Container, HStack, Image, Text } from "@chakra-ui/react";
+import { Avatar, Box, Button, Container, HStack, Image, Text } from "@chakra-ui/react";
 import logo from "../Images/logo.png";
-import home from "../Images/home.jpg";
 import { Link, useNavigate } from "react-router-dom";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { useSelector } from "react-redux";
 
 const boxshadow =
   "rgb(255, 255, 255) 0px 3px 3px -1px, rgba(255, 255, 255, 0.974) 0px 2px 3px -1px";
@@ -11,6 +13,11 @@ const Navbar = () => {
   const [scroll, setScroll] = useState(false);
   const navigate = useNavigate();
 
+  //Redux
+  const isAuth = useSelector((store)=> store.authReducer.isAuth)
+  const username = useSelector((store)=> store.authReducer.user)
+
+
   //Navbar Sticky
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -18,6 +25,13 @@ const Navbar = () => {
     });
   }, []);
 
+  //handleLogout
+  const handleLogout = ()=>{
+
+  }
+
+
+  
   return (
     <Box
       bg={"#00163A"}
@@ -47,11 +61,34 @@ const Navbar = () => {
             </Link>
             <Link to={"/dashboard"}>
               <Text as={"span"} _hover={{ color: "red" }}>
-                Stats
+                Dashboard
               </Text>
             </Link>
           </HStack>
-          <HStack
+          {
+            isAuth? <HStack
+            spacing={{ base: "5px", md: "10px", lg: "20px" }}
+            marginRight={"20px"}
+          >
+            <Avatar
+              width={"50px"}
+              name={username}
+              src="https://bit.ly/broken-link"
+            />
+            <Button
+              color={"white"}
+              bg={"#e02c1f"}
+              variant={"solid"}
+              borderRadius={"50px"}
+              _hover={{
+                bg: "#b5271d",
+              }}
+              boxShadow={boxshadow}
+              onClick={handleLogout}
+            >
+              Log out
+            </Button>
+          </HStack> : <HStack
             spacing={{ base: "10px", md: "10px", lg: "20px" }}
             marginRight={{ base: "0px", md: "20px", lg: "20px" }}
           >
@@ -82,6 +119,14 @@ const Navbar = () => {
               Sign up
             </Button>
           </HStack>
+
+          <Link to="/cart">
+          <Center fontSize="15px" flexDirection="column" cursor="pointer">
+            <AiOutlineShoppingCart size="35px"/>          
+          </Center>
+        </Link>
+          }
+          
         </HStack>
       </Container>
     </Box>

@@ -6,8 +6,10 @@ import {
   RequestAction,
   RequestError,
   RequestSuccess,
+  getProductAction,
 } from "../Redux/productReducer/action";
 import {SimpleGrid,Heading} from "@chakra-ui/react";
+import { SimpleGrid } from "@chakra-ui/react";
 import { ProductCard } from "./ProductCard";
 import { useSearchParams } from "react-router-dom";
 
@@ -56,21 +58,29 @@ const Product = () => {
   }, [searchParams]);
   console.log(data);
 
-  if(isLoading){
-    return(
-    <>
-        <Heading as='h4'marginLeft={'40px'} size='lg'>Loading...</Heading>
-      <img style={{margin:'auto'}} src='https://i.pinimg.com/originals/8a/6b/19/8a6b1994f66c2d5e6967ad1655300762.gif'></img>
+//   if(isLoading){
+//     return(
+//     <>
+//         <Heading as='h4'marginLeft={'40px'} size='lg'>Loading...</Heading>
+//       <img style={{margin:'auto'}} src='https://i.pinimg.com/originals/8a/6b/19/8a6b1994f66c2d5e6967ad1655300762.gif'></img>
       
-    </>
-    )
-  }
+//     </>
+//     )
+//   }
+  useEffect(() => {
+    dispatch(getProductAction());
+  }, []);
 
   return (
     <>
-      <SimpleGrid width={'95%'} margin={'auto'} spacing={8} columns={{ sm: 1, md: 2, lg: 3 }}>
+      <SimpleGrid
+        width={"95%"}
+        margin={"auto"}
+        spacing={8}
+        columns={{ sm: 1, md: 2, lg: 3 }}
+      >
         {data.map((ele) => (
-          <ProductCard {...ele}/>
+          <ProductCard key={ele?._id} {...ele} />
         ))}
       </SimpleGrid> 
     </>

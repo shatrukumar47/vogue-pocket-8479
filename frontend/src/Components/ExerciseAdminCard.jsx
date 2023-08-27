@@ -10,19 +10,23 @@ import {
 import React from "react";
 import TruncatedText from "./TruncatedText";
 
-const AdminCard = ({item, handleDeleteBTN, handleEditBTN, onOpen, setEditBTN}) => {
 
-
+const ExerciseAdminCard = ({ item, handleDeleteBTN, handleEditBTN, onOpen, setEditBTN}) => {
   //deleteBtn
-  const handleDelete = ()=>{
-    handleDeleteBTN(item?._id)
-  }
+  const handleDelete = () => {
+    handleDeleteBTN(item?._id);
+  };
 
   //EditBtn
-  const handleEdit = ()=>{
+  const handleEdit = () => {
     setEditBTN(true)
     handleEditBTN(item)
     onOpen();
+  };
+
+  //handleImageClick
+  const handleVideoLink = ()=>{
+    window.open(item?.url, "_blank");
   }
 
   return (
@@ -34,10 +38,12 @@ const AdminCard = ({item, handleDeleteBTN, handleEditBTN, onOpen, setEditBTN}) =
       boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
     >
       <Image
-        src= {item?.image}
+        src= "https://img.freepik.com/free-vector/organic-flat-people-meditating-illustration_23-2148906556.jpg?size=626&ext=jpg&ga=GA1.1.1257944628.1683352118&semt=sph"
         width={"200px"}
         height={"250px"}
         objectFit={"cover"}
+        cursor={"pointer"}
+        onClick={handleVideoLink}
       />
       <Box width={"100%"}>
         <Text fontSize={"16px"} textAlign={"left"} color={"green"}>
@@ -49,30 +55,28 @@ const AdminCard = ({item, handleDeleteBTN, handleEditBTN, onOpen, setEditBTN}) =
           color={"gray.500"}
           fontWeight={"bold"}
         >
-          {item?.brand}
+          {item?.category}
         </Text>
-          <TruncatedText text={item?.name} maxLength={20} />
+        <TruncatedText text={item?.title} maxLength={20} />
         <Text
           fontSize={"16px"}
           textAlign={"left"}
           color={"green"}
           fontWeight={"bold"}
         >
-          ₹{item?.price}
+          Calories : {item?.calories}
         </Text>
-        <Text fontSize={"16px"} textAlign={"left"} color={"gray.500"}>
-         Category : {item?.category}
-        </Text>
-        <Text fontSize={"16px"} textAlign={"left"} color={"gray.500"}>
-          Rating : {item?.rating}
+        <Text
+          fontSize={"16px"}
+          textAlign={"left"}
+          color={"green"}
+          fontWeight={"bold"}
+        >
+          Duration : {item?.duration}
         </Text>
       </Box>
       <HStack spacing={"20px"}>
-        <Button
-          variant={"outline"}
-          colorScheme="green"
-          onClick={handleEdit}
-        >
+        <Button variant={"outline"} colorScheme="green" onClick={handleEdit}>
           EDIT
         </Button>
         <Button colorScheme="red" onClick={handleDelete}>
@@ -83,4 +87,4 @@ const AdminCard = ({item, handleDeleteBTN, handleEditBTN, onOpen, setEditBTN}) =
   );
 };
 
-export default AdminCard;
+export default ExerciseAdminCard;
