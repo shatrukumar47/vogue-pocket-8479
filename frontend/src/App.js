@@ -12,8 +12,7 @@ function App() {
       <Navbar />
       <MainRoutes />
       <Footer />
-      {/* <UserExercise/> */}
-      <Exercise/>
+      <Exercise />
     </div>
   );
 }

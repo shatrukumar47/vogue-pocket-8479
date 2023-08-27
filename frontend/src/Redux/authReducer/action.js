@@ -4,12 +4,19 @@ import axios from "axios";
 
 
 
-export const login = (user)=>(dispatch) => {
+export const login = (user)=> async (dispatch) => {
+  try {
     dispatch({type:LOGIN_REQUEST})
-   return axios.post(`http://localhost:8080/users/login`,user).then((res)=>{
-      dispatch({type:LOGIN_SUCCESS,payload:res.data})
-      console.log(res.data)
-    }).catch((err)=>{
+    try {
+      const res = await axios.post(`http://localhost:8080/users/login`,user);
+      console.log(res)
+      dispatch({type:LOGIN_SUCCESS, payload:res?.data})
+      
+      return res?.data?.accessToken;
+    } catch (error) {
       dispatch({type:LOGIN_FAILURE})
-    })
-  };
+    }
+  } catch (error) {
+    console.log(error)
+  }
+};

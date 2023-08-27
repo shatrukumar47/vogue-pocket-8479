@@ -19,7 +19,6 @@ const Dashboard = () => {
     setTabs(Tabs)
   }
 
-  console.log(tabs)
   return <Box>
     <Container maxW={"8xl"} border={"1px solid green"} h={"90vh"}>
       <HStack spacing={"20px"}>
