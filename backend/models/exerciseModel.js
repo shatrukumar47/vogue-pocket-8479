@@ -1,12 +1,15 @@
 const mongoose = require('mongoose');
 
 const exerciseSchema = new mongoose.Schema({
-    userID: String,
+    userid: String,
     dailyData: {
         type: Map,
         of: {
             calories: Number,
-            exercise: [String],
+            exercise: [{
+                url: String,
+                calories: Number
+            }],
             targetCalories: Number // Added targetCalories field within dailyData
         }
     }

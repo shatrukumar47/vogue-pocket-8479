@@ -12,8 +12,8 @@ function App() {
       <Navbar />
       <MainRoutes />
       <Footer />
-      {/* <UserExercise/> */}
-      <Exercise/>
+      {/* <UserExercise/>
+      <Exercise/> */}
     </div>
   );
 }

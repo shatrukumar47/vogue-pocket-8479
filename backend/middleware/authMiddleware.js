@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken")
 const blacklistModel = require("../models/blacklist")
 const authMiddle = async (req, res, next) => {
-
+console.log(req)
     try {
-
+console.log("hello")
         const accesstoken = req.cookies.token.accesstoken || null;
         const rToken = req.cookies.token.refreshToken || null;
-
+console.log(rToken,accesstoken,"hello")
         if (accesstoken) {
 
             let existingToken = await blacklistModel.find({ blacklist: { $in: accesstoken } });
@@ -22,6 +22,7 @@ const authMiddle = async (req, res, next) => {
 
                     req.userid = decoded.user_id;
                     req.username = decoded.username;
+                    console.log(req.userid)
                     next();
                 }
                 else {

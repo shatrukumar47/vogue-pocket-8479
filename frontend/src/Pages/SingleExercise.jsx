@@ -31,7 +31,7 @@ const SingleExercise = ({ el }) => {
     }
   };
   const handleSave=()=>{
-axios.post("http://localhost:8080/exercise/add",{exercise:url,calories:calorieCount})
+axios.post("http://localhost:8080/exercise/add",{exercise:{url:url, calories:calorieCount},calories:calorieCount,userid:"64eb19a1e026ca017b21fcd0"})
 .then((res)=>onClose())
   }
 
