@@ -9,9 +9,8 @@ export const login = (user)=> async (dispatch) => {
     dispatch({type:LOGIN_REQUEST})
     try {
       const res = await axios.post(`http://localhost:8080/users/login`,user);
-      console.log(res)
       dispatch({type:LOGIN_SUCCESS, payload:res?.data})
-      
+
       return res?.data?.accessToken;
     } catch (error) {
       dispatch({type:LOGIN_FAILURE})

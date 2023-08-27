@@ -3,6 +3,7 @@ import { Avatar, Box, Button, Container, HStack, Image, Text } from "@chakra-ui/
 import logo from "../Images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { deleteLS } from "../utils/localStorage";
 
 const boxshadow =
   "rgb(255, 255, 255) 0px 3px 3px -1px, rgba(255, 255, 255, 0.974) 0px 2px 3px -1px";
@@ -25,7 +26,9 @@ const Navbar = () => {
 
   //handleLogout
   const handleLogout = ()=>{
-
+    console.log("Logout")
+    deleteLS("auth");
+    return navigate("/", {required: true})
   }
 
 
