@@ -6,45 +6,60 @@ const exerciseRouter=express.Router();
 
 
 
-exerciseRouter.get("/",authMiddle,async(req,res)=>{
+exerciseRouter.get("/",async(req,res)=>{
 const {userID}=req.body;
     const data= await ExerciseModel.findOne({userID})
     // console.log(data);
     res.send({"data":data.dailyData})
 })
 
-exerciseRouter.post("/add",authMiddle,  async (req, res) => {
-    const { userID, calories, exercise } = req.body;
+exerciseRouter.post("/add" ,async (req, res) => {
+    const { userID, calories, exercise, targetCalories } = req.body;
 
     try {
         let existingData = await ExerciseModel.findOne({ userID });
 
         if (existingData) {
-            // Data exists, update exercise array
-            const formattedDate = getFormattedDate(new Date()); // Pass the current date
+            const formattedDate = getFormattedDate(new Date());
             const existingDailyData = existingData.dailyData.get(formattedDate);
 
             if (existingDailyData) {
-                existingDailyData.exercise.push(exercise);
-                existingDailyData.calories += calories;
-               
+                if (exercise) {
+                    existingDailyData.exercise.push(exercise);
+                }
+
+                if (calories) {
+                    existingDailyData.calories += calories;
+                }
+
+                if (targetCalories !== undefined) {
+                    existingDailyData.targetCalories = targetCalories;
+                }
             } else {
-                existingData.dailyData.set(formattedDate, { calories, exercise: exercise });
+                const newData = {
+                    calories: calories || 0,
+                    exercise: exercise || [],
+                    targetCalories: targetCalories !== undefined ? targetCalories : null
+                };
+                existingData.dailyData.set(formattedDate, newData);
             }
 
             await existingData.save();
         } else {
-            // Data does not exist, create a new entry
             const newData = new ExerciseModel({
                 userID,
-                dailyData: new Map([[getFormattedDate(new Date()), { calories, exercise: exercise }]])
+                dailyData: new Map([[getFormattedDate(new Date()), {
+                    calories: calories || 0,
+                    exercise: exercise || [],
+                    targetCalories: targetCalories !== undefined ? targetCalories : 2000
+                }]])
             });
             await newData.save();
         }
 
         res.status(200).json({ message: "Data added successfully" });
     } catch (error) {
-        console.error(error); // Log the specific error for debugging
+        console.error(error);
         res.status(500).json({ error: "An error occurred" });
     }
 });

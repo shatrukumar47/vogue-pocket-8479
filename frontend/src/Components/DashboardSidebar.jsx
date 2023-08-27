@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import {Box, Button, Divider, FormControl, FormLabel, HStack, Image, Input, InputGroup, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure} from "@chakra-ui/react";
 import { FaUserTie, FaChild, FaUserShield, FaFileAlt, FaSignOutAlt } from "react-icons/fa";
 
@@ -10,6 +11,8 @@ const DashboardSidebar = ({handleProfileTabs}) => {
         TandC: false,
         PP: false,
     });
+    const [target,setTarget]=useState("")
+    const [targ,setTarg]=useState("")
 
     useEffect(()=>{
         handleProfileTabs(tabs);
@@ -64,23 +67,28 @@ const DashboardSidebar = ({handleProfileTabs}) => {
         console.log("logout")
     }
 
+const handleTarget = ()=>{
+axios.post("http://localhost:8080/exercise/add",{targetCalories:target})
 
+
+}
 
   return (
     <Box width={"400px"} h={"90vh"} bg={"#00163A"} >
         <Box marginBottom={"100px"} border={"1px solid red"} padding={"20px"} color={"white"}>
-            <Text>Target : 2000</Text>
+            <Text>Target : {target?target:2000}</Text>
         <FormControl>
             <FormLabel>Enter </FormLabel>
             <InputGroup>
               <Input
-                bg={"white"}
-                type="email"
+                // bg={"white"}
+                type="number"
                 placeholder="Enter daily target"
+                onChange={(e)=>setTarget(e.target.value)}
               />
             </InputGroup>
           </FormControl>
-          <Button colorScheme='orange' margin={"10px auto"}>Set Target</Button>
+          <Button colorScheme='orange' margin={"10px auto"} onClick={handleTarget}>Set Target</Button>
         </Box>
 
         {/* Profile */}
