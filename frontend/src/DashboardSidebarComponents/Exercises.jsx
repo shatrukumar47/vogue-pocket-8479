@@ -1,10 +1,12 @@
+import { Box } from '@chakra-ui/react'
 import React from 'react'
+import Exercise from '../Pages/Exercise'
 
 const Exercises = () => {
   return (
-    <div>
-      Exercises
-    </div>
+    <Box>
+      <Exercise />
+    </Box>
   )
 }
 
