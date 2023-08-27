@@ -26,6 +26,18 @@ productRoute.get("/", async (req, res) => {
     } else if (req.query.sort === "desc") {
       s.price = -1;
     }
+
+    //let skip=req.query.limit*req.query.skip
+    // console.log(q)
+//     try{
+//         const products=await ProductModel.find(q).sort(s).skip(skip).limit(req.query.limit)
+//         res.status(200).json({'data':products})
+//     }
+//     catch(error){
+//         res.status(400).send({"error":error})
+//     }
+// })
+
   }
   try {
     //Pagination

@@ -1,0 +1,16 @@
+.filter{
+    display: block;
+    width: 100%;
+    /* border: 2px solid red; */
+}
+.burgermenu{
+ display: none;
+}
+  @media screen and (max-width: 786px) {
+   .filter{
+       display: none
+   }
+   .burgermenu{
+    display: block;
+   }
+  }

@@ -6,6 +6,8 @@ import LoginPage from "../Pages/LoginPage";
 import SignupPage from "../Pages/SignupPage";
 import { ProductPage } from "../Pages/ProductPage";
 import AdminPage from "../Pages/AdminPage";
+import Cart from "../Pages/Cart";
+import Checkout from "../Pages/Checkout";
 import PrivateRoute from "./PrivateRoute";
 
 const MainRoutes = () => {
@@ -20,6 +22,9 @@ const MainRoutes = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/products" element={<ProductPage />} />
+      <Route path="/admin" element={<AdminPage />} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/cart/checkout" element={<Checkout/>} />
       <Route path="/admin" element={
         <PrivateRoute>
           <AdminPage />
