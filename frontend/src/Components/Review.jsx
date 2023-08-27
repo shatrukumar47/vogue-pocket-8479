@@ -5,29 +5,37 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 
-const products = [
-  {
-    name: 'Product 1',
-    desc: 'A nice thing',
-    price: '$9.99',
-  },
-  {
-    name: 'Product 2',
-    desc: 'Another thing',
-    price: '$3.45',
-  },
-  {
-    name: 'Product 3',
-    desc: 'Something else',
-    price: '$6.51',
-  },
-  {
-    name: 'Product 4',
-    desc: 'Best thing of all',
-    price: '$14.11',
-  },
-  { name: 'Shipping', desc: '', price: 'Free' },
-];
+let products = JSON.parse(localStorage.getItem("cartdata")) || [];
+console.log(products)
+let total = 0;
+for(let i=0;i<products.length;i++){
+
+  total += products[i].price;
+}
+
+// const products = [
+//   {
+//     name: 'Product 1',
+//     desc: 'A nice thing',
+//     price: '$9.99',
+//   },
+//   {
+//     name: 'Product 2',
+//     desc: 'Another thing',
+//     price: '$3.45',
+//   },
+//   {
+//     name: 'Product 3',
+//     desc: 'Something else',
+//     price: '$6.51',
+//   },
+//   {
+//     name: 'Product 4',
+//     desc: 'Best thing of all',
+//     price: '$14.11',
+//   },
+//   { name: 'Shipping', desc: '', price: 'Free' },
+// ];
 
 const addresses = ['1 MUI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
 const payments = [
@@ -45,8 +53,8 @@ export default function Review() {
       </Typography>
       <List disablePadding>
         {products.map((product) => (
-          <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
-            <ListItemText primary={product.name} secondary={product.desc} />
+          <ListItem key={product._id} sx={{ py: 1, px: 0 }}>
+            <ListItemText primary={product.brand} secondary={product.name} />
             <Typography variant="body2">{product.price}</Typography>
           </ListItem>
         ))}
@@ -54,7 +62,7 @@ export default function Review() {
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            $34.06
+            {`$${Math.floor(total/82.55)}`}
           </Typography>
         </ListItem>
       </List>

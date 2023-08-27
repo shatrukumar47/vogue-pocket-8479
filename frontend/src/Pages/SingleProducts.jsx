@@ -3,28 +3,38 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Text } from "@chakra-ui/react";
+import { Heading, Text } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 const SingleProducts = () => {
   const toast = useToast();
   const [count, setCount] = useState(1);
-  const [weight, setWeight] = useState(1);
   const [data, setData] = useState([]);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const product = useSelector((store) => store.productReducer.products);
+  const product = useSelector((store) => store.productReducer.data);
 
   localStorage.setItem("id", id);
   let idnew = localStorage.getItem("id");
-
+  let CartData = [];
+  
+  const newdata = {
+    _id: "64e8af345898846d81c3e1b0",
+    name: "Nutrabay Gold 100% Whey Protein Isolate",
+    image: "https://cdn.nutrabay.com/wp-content/uploads/2023/06/NB-NUT-1013-05-01.jpg",
+    price: 1999,
+    rating: 3.7,
+    category: "WheyProtein",
+    brand: "NUTRABAY"
+  }
   useEffect(() => {
-    const data = product?.find((el) => el.id === +idnew);
-    setData(data);
+    // const data = product?.find((el) => el.id === +idnew);
+
+    setData(newdata);
   }, []);
 
-  let finalPrice = data?.price * weight;
+  let finalPrice = data?.price
   let saveprice = data?.price_cut - data?.price;
 
   const handleCart = () => {
@@ -36,14 +46,15 @@ const SingleProducts = () => {
       duration: 5000,
       isClosable: true,
     });
-    // let cartdata = {
-    //   ...data,
-    //   price: finalPrice,
-    //   quantity: count,
-    //   weight: weight,
-    // };
-  };
+    let cartdata = {
+      ...data,
+      quantity: count,
+    };
 
+    CartData.push(cartdata)
+    localStorage.setItem("cartdata", JSON.stringify(CartData));
+  };
+  console.log(data)
   return (
     <div>
       <DIV>
@@ -61,7 +72,7 @@ const SingleProducts = () => {
               <i className="fa-sharp fa-solid fa-star"></i>
               <i className="fa-sharp fa-solid fa-star"></i>
               <i className="fa-solid fa-star-half-stroke"></i>
-              <span>{data?.rating_count} Reviews</span>
+              <span>{data?.rating} Reviews</span>
             </div>
             <div className="dabba">
               <p>:gift: Free Nutrabay Shaker</p>
@@ -98,27 +109,17 @@ const SingleProducts = () => {
           </div>
         </div>
         <div className="right">
-          <div className="weightBox">
-            <span className="weight">Weight: {weight}kg</span>
+          <div className="brand">
+            <Text fontWeight="bold" fontSize="30px">
+              {data?.brand}
+            </Text>
           </div>
-          <div className="buttom">
-            <button value={"1"} onClick={(e) => setWeight(e.target.value)}>
-              1kg
-            </button>
-            <button value={"2"} onClick={(e) => setWeight(e.target.value)}>
-              2kg
-            </button>
-            <button value={"3"} onClick={(e) => setWeight(e.target.value)}>
-              3kg
-            </button>
-          </div>
-          <br />
-          <hr />
+
           <br />
           <div className="mrp">
             <p>MRP : </p>
             <Text opacity={".5"} as="del" fontSize={"xl"}>
-              ₹ {data?.price_cut}
+              ₹ {data?.price + 100}
             </Text>
           </div>
           <div className="mrp">
@@ -130,7 +131,7 @@ const SingleProducts = () => {
           <div className="cutmrp">
             <p>You Save: </p>
             <Text color={"red.600"}>
-              ₹{saveprice} ({data?.offer}%)
+              ₹({20}%)
             </Text>
           </div>
           <Text className="opacity">Inclusive of all taxes </Text>
@@ -177,7 +178,7 @@ const DIV = styled.div`
   margin-top: 8%;
   .left {
     /* border: 1px solid blue; */
-    width: 70%;
+    width: 60%;
     height: 60%;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     border-radius: 3px;
@@ -195,7 +196,7 @@ const DIV = styled.div`
   }
   .right {
     /* border: 1px solid black; */
-    width: 30%;
+    width: 40%;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -209,10 +210,11 @@ const DIV = styled.div`
     display: flex;
     /* border: 1px solid gray;  */
     position: relative;
+
   }
   .first img {
-    width: 200%;
-    height: 400px;
+    width: 100%;
+    height: 500px;
   }
   .top-left {
     position: absolute;
@@ -227,6 +229,7 @@ const DIV = styled.div`
   .fit {
     font-size: 23px;
     opacity: 0.5;
+    color:#e41e00;
   }
   .fa-sharp,
   .fa-solid {

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { Box, Button, Center, Container, HStack, Image, Text } from "@chakra-ui/react";
 import { Avatar, Box, Button, Container, HStack, Image, Text } from "@chakra-ui/react";
 import logo from "../Images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useSelector } from "react-redux";
 
 const boxshadow =
@@ -117,6 +119,12 @@ const Navbar = () => {
               Sign up
             </Button>
           </HStack>
+
+          <Link to="/cart">
+          <Center fontSize="15px" flexDirection="column" cursor="pointer">
+            <AiOutlineShoppingCart size="35px"/>          
+          </Center>
+        </Link>
           }
           
         </HStack>

@@ -5,21 +5,29 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const blacklistModel = require("../models/blacklist");
 
-// {
-//     "name": "ttstgsr",
-//     "email": "sdggdfgs",
-//     "password": "sdggdfgs",
-//     "city": "sdfg",
-//     "age": 56
-//   }
-
 //Logout Functionality
 route.get("/logout", async (req, res) => {
   const accesstoken = req.cookies.token.accesstoken || null;
 
   if (accesstoken) {
     let arr = await blacklistModel.find();
-
+    const accesstoken = req.cookies.token.accesstoken || null;
+    if (accesstoken) {
+        let arr = await blacklistModel.find();
+        if (arr.length === 0) {
+            await blacklistModel.insertMany({ blacklist: accesstoken })
+            res.clearCookie("token")
+            res.send({ "msg": "User has been logged out" })
+        }
+        else {
+            await blacklistModel.updateMany({},
+                { $push: { blacklist: accesstoken } })
+            res.clearCookie("token")
+            res.send({ "msg": "User has been logged out" })
+        }
+    }
+    else {
+        res.send("Login First")
     if (arr.length === 0) {
       await blacklistModel.insertMany({ blacklist: accesstoken });
       res.send({ msg: "User has been logged out" });
@@ -28,7 +36,6 @@ route.get("/logout", async (req, res) => {
         {},
         { $push: { blacklist: accesstoken } }
       );
-
       res.send({ msg: "User has been logged out" });
     }
   } else {
