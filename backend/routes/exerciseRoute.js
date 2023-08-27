@@ -4,7 +4,7 @@ const authMiddle=require("../middleware/authMiddleware")
 const exerciseRouter=express.Router();
 
 
-
+//get request
 
 exerciseRouter.get("/",async(req,res)=>{
   
