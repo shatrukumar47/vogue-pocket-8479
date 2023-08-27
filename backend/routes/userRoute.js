@@ -28,6 +28,7 @@ route.get("/logout", async (req, res) => {
         if (arr.length === 0) {
 
             await blacklistModel.insertMany({ blacklist: accesstoken })
+            res.clearCookie("token")
             res.send({ "msg": "User has been logged out" })
         }
         else {
@@ -35,6 +36,7 @@ route.get("/logout", async (req, res) => {
             await blacklistModel.updateMany({},
                 { $push: { blacklist: accesstoken } })
 
+            res.clearCookie("token")
             res.send({ "msg": "User has been logged out" })
 
         }
