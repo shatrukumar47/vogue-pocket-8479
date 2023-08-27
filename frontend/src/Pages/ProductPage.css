@@ -1,6 +1,8 @@
 #container{
     display: flex;
-    margin-top: 50px;
+    border: 1px solid red;
+    width: 80%;
+    margin: 50px auto;
     /* background-color:#00163A ; */
 }
 .sidebar{

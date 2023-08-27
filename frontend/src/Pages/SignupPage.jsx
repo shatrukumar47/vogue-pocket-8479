@@ -98,27 +98,25 @@ const SignupPage = () => {
 
   return (
     <Box
-      bgImage={`url(${loginImg})`}
-      bgSize="cover"
-      bgRepeat="no-repeat"
+      bg={'#00163A'}
       w="100%"
-      h="100vh"
+      h="800px"
       paddingTop={"50px"}
-      color={"white"}
+      paddingBottom={"30px"}
     >
       <VStack
-        width={{ base: "100%", md: "400px", lg: "400px" }}
+        width={{ base: "100%", md: "500px", lg: "500px" }}
         margin={"auto"}
-        spacing={"20px"}
-        padding={"20px"}
+        spacing={"10px"}
+        padding={"30px"} borderRadius={"10px"} bg={"white"} boxShadow={"rgba(3, 102, 214, 0.3) 0px 5px 500px 10px"}
       >
         <Heading size={"lg"}>Create Account</Heading>
         <Divider color={"blue.500"} />
         <FormControl>
           <FormLabel>Username : </FormLabel>
           <InputGroup>
-            <InputLeftElement pointerEvents="none" bg={"white"}>
-              <EmailIcon color="black" />
+            <InputLeftElement pointerEvents="none">
+              <EmailIcon color="gray.400" />
             </InputLeftElement>
             <Input
               type="text"
@@ -133,8 +131,8 @@ const SignupPage = () => {
         <FormControl>
           <FormLabel>Email : </FormLabel>
           <InputGroup>
-            <InputLeftElement pointerEvents="none" bg={"white"}>
-              <EmailIcon color="black" />
+            <InputLeftElement pointerEvents="none">
+              <EmailIcon color="gray.400" />
             </InputLeftElement>
             <Input
               type="email"
@@ -149,8 +147,8 @@ const SignupPage = () => {
         <FormControl>
           <FormLabel>Password : </FormLabel>
           <InputGroup>
-            <InputLeftElement pointerEvents="none" bg={"white"}>
-              <LockIcon color="black" />
+            <InputLeftElement pointerEvents="none">
+              <LockIcon color="gray.400" />
             </InputLeftElement>
             <Input
               pr="4.5rem"
@@ -173,17 +171,17 @@ const SignupPage = () => {
           </InputGroup>
           <FormHelperText
             textAlign={"left"}
-            color={checkPass ? "darkred" : "white"}
+            color={checkPass ? "darkred" : "green"}
           >
-            use special, numbers, min 8 and 1 uppercase characters
+          use special, numbers, min 8 and 1 uppercase characters
           </FormHelperText>
         </FormControl>
 
         <FormControl>
           <FormLabel>Confirm Password : </FormLabel>
           <InputGroup>
-            <InputLeftElement pointerEvents="none" bg={"white"}>
-              <LockIcon color="black" />
+            <InputLeftElement pointerEvents="none">
+              <LockIcon color="gray.400" />
             </InputLeftElement>
             <Input
               pr="4.5rem"
@@ -209,7 +207,7 @@ const SignupPage = () => {
         <Text alignSelf={"flex-end"}>
           Already a user?{" "}
           <Link to={"/login"}>
-            <Text as={"span"} color={"black"}>
+            <Text as={"span"} color={"blue"}>
               Sign in
             </Text>
           </Link>
