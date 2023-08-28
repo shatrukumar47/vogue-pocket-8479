@@ -1,19 +1,24 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { Navigate, useLocation } from 'react-router-dom';
-import { getLS } from '../utils/localStorage';
+import React from "react";
+import { useSelector } from "react-redux";
+import { Navigate, useLocation } from "react-router-dom";
+import { getLS } from "../utils/localStorage";
 
-const PrivateRoute = ({children}) => {
-    const location = useLocation();
-  console.log(location)
-    //Redux
-    const isAuth = getLS("auth")?.isAuth || false;
+const PrivateRoute = ({ children }) => {
+  const location = useLocation();
+  console.log(location);
+  //Local Storage
+  const isAuth = getLS("auth")?.isAuth || false;
 
-    if(!isAuth){
-      return <Navigate to={{ pathname: "/login", state: { from: location } }} replace={true} />;
-    }
+  if (!isAuth) {
+    return (
+      <Navigate
+        to={{ pathname: "/login", state: { from: location } }}
+        replace={true}
+      />
+    );
+  }
 
-  return children
-}
+  return children;
+};
 
-export default PrivateRoute
+export default PrivateRoute;
