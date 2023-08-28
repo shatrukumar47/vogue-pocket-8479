@@ -13,7 +13,7 @@ import logo from "../Images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteLS } from "../utils/localStorage";
+import { deleteLS, getLS } from "../utils/localStorage";
 import { Logout } from "../Redux/authReducer/action";
 
 const boxshadow =
@@ -25,9 +25,9 @@ const Navbar = () => {
 
   //Redux
   const dispatch = useDispatch();
-  const isAuth = useSelector((store) => store.authReducer.isAuth);
-  const username = useSelector((store) => store.authReducer.user);
-  const isAdmin = useSelector((store) => store.authReducer.isAdmin);
+  const isAuth = getLS("auth")?.isAuth || false;
+  const username = getLS("auth")?.username || ""
+  const isAdmin = getLS("auth")?.isAdmin || false
 
   //Navbar Sticky
   useEffect(() => {
