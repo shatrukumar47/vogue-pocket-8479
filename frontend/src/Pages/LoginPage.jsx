@@ -51,7 +51,7 @@ const LoginPage = () => {
           if(location?.state===null){
             navigate("/");
           }else{
-            navigate(location?.state , {required: true})
+            navigate(location.state, { replace: true });
           }
         }
       })

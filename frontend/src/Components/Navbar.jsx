@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Box, Avatar, Button, Center, Container, HStack, Image, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Avatar,
+  Button,
+  Center,
+  Container,
+  HStack,
+  Image,
+  Text,
+} from "@chakra-ui/react";
 import logo from "../Images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -16,9 +25,9 @@ const Navbar = () => {
 
   //Redux
   const dispatch = useDispatch();
-  const isAuth = useSelector((store)=> store.authReducer.isAuth)
-  const username = useSelector((store)=> store.authReducer.user)
-
+  const isAuth = useSelector((store) => store.authReducer.isAuth);
+  const username = useSelector((store) => store.authReducer.user);
+  const isAdmin = useSelector((store) => store.authReducer.isAdmin);
 
   //Navbar Sticky
   useEffect(() => {
@@ -28,14 +37,12 @@ const Navbar = () => {
   }, []);
 
   //handleLogout
-  const handleLogout = ()=>{
-    console.log("Logout")
+  const handleLogout = () => {
+    console.log("Logout");
+    navigate("/");
     dispatch(Logout());
-    navigate("/", {replace: true});
-  }
+  };
 
-
-  
   return (
     <Box
       bg={"#00163A"}
@@ -68,69 +75,80 @@ const Navbar = () => {
                 Dashboard
               </Text>
             </Link>
+
+            {isAdmin && (
+              <Link to={"/admin"}>
+                <Text as={"span"} _hover={{ color: "red" }}>
+                  Admin
+                </Text>
+              </Link>
+            )}
           </HStack>
           {
-            isAuth? <HStack
-            spacing={{ base: "5px", md: "10px", lg: "20px" }}
-            marginRight={"20px"}
-          >
-            <Avatar
-              width={"50px"}
-              name={username}
-              src="https://bit.ly/broken-link"
-            />
-            <Button
-              color={"white"}
-              bg={"#e02c1f"}
-              variant={"solid"}
-              borderRadius={"50px"}
-              _hover={{
-                bg: "#b5271d",
-              }}
-              boxShadow={boxshadow}
-              onClick={handleLogout}
-            >
-              Log out
-            </Button>
-          </HStack> : <HStack
-            spacing={{ base: "10px", md: "10px", lg: "20px" }}
-            marginRight={{ base: "0px", md: "20px", lg: "20px" }}
-          >
-            <Button
-              color={"white"}
-              bg={"#e02c1f"}
-              variant={"solid"}
-              borderRadius={"50px"}
-              _hover={{
-                bg: "#b5271d",
-              }}
-              p={{ base: "10px", md: "20px", lg: "20px" }}
-              boxShadow={{ base: "", md: boxshadow, lg: boxshadow }}
-              onClick={() => navigate("/login")}
-            >
-              Log in
-            </Button>
-            <Button
-              colorScheme="blue"
-              borderRadius={"50px"}
-              _hover={{
-                bg: "skyblue",
-              }}
-              p={{ base: "10px", md: "20px", lg: "20px" }}
-              boxShadow={{ base: "", md: boxshadow, lg: boxshadow }}
-              onClick={() => navigate("/signup")}
-            >
-              Sign up
-            </Button>
-          </HStack>
+            isAuth ? (
+              <HStack
+                spacing={{ base: "5px", md: "10px", lg: "20px" }}
+                marginRight={"20px"}
+              >
+                <Avatar
+                  width={"50px"}
+                  name={username.toString()}
+                  src="https://bit.ly/broken-link"
+                />
+                <Button
+                  color={"white"}
+                  bg={"#e02c1f"}
+                  variant={"solid"}
+                  borderRadius={"50px"}
+                  _hover={{
+                    bg: "#b5271d",
+                  }}
+                  boxShadow={boxshadow}
+                  onClick={handleLogout}
+                >
+                  Log out
+                </Button>
+              </HStack>
+            ) : (
+              <HStack
+                spacing={{ base: "10px", md: "10px", lg: "20px" }}
+                marginRight={{ base: "0px", md: "20px", lg: "20px" }}
+              >
+                <Button
+                  color={"white"}
+                  bg={"#e02c1f"}
+                  variant={"solid"}
+                  borderRadius={"50px"}
+                  _hover={{
+                    bg: "#b5271d",
+                  }}
+                  p={{ base: "10px", md: "20px", lg: "20px" }}
+                  boxShadow={{ base: "", md: boxshadow, lg: boxshadow }}
+                  onClick={() => navigate("/login")}
+                >
+                  Log in
+                </Button>
+                <Button
+                  colorScheme="blue"
+                  borderRadius={"50px"}
+                  _hover={{
+                    bg: "skyblue",
+                  }}
+                  p={{ base: "10px", md: "20px", lg: "20px" }}
+                  boxShadow={{ base: "", md: boxshadow, lg: boxshadow }}
+                  onClick={() => navigate("/signup")}
+                >
+                  Sign up
+                </Button>
+              </HStack>
+            )
 
-        //   <Link to="/cart">
-        //   <Center fontSize="15px" flexDirection="column" cursor="pointer">
-        //     <AiOutlineShoppingCart size="35px"/>          
-        //   </Center>
-        // </Link>
+            //   <Link to="/cart">
+            //   <Center fontSize="15px" flexDirection="column" cursor="pointer">
+            //     <AiOutlineShoppingCart size="35px"/>
+            //   </Center>
+            // </Link>
           }
-          
         </HStack>
       </Container>
     </Box>

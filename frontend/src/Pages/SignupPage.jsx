@@ -72,15 +72,14 @@ const SignupPage = () => {
           axios.post(`http://localhost:8080/users/register`,user).then((res)=>{
             console.log(res.data)
           })
-          console.log(user);
-          
           toast({
-            title: `Welcome to FitQuest, Shatrughan`,
+            title: `Welcome to FitQuest`,
             position: positions[0],
             isClosable: true,
             duration: 1000,
             status: "success",
           });
+          setUser(initialState);
         }
       } else {
         setCheckPass(true);

@@ -35,7 +35,7 @@ const MyProfile = () => {
   const [edit, setEdit] = useState(true);
   const handleClick = () => setShow(!show);
 
-  // const userData = useSelector((store) => store.authReducer.User);
+  const user = useSelector((store) => store.authReducer.userDetails);
 
   const handleChange = () => {};
 
@@ -43,22 +43,13 @@ const MyProfile = () => {
     setEdit(!edit);
   };
 
-  // destructuring userInfo state
-  const userData = {
-    name: "",
-    username: "",
-    email: "",
-    password: "",
-    age: "",
-  };
-
+  
   return (
     <Box
       padding={"20px"}
       bg={"white"}
-      margin={"10px auto"}
-      borderRadius={"20px"}
-      bgColor={"#28303F"}
+      margin={"40px auto"}
+      borderRadius={"20px"} textAlign={"center"}
     >
       <HStack
         justifyContent={"space-between"}
@@ -78,13 +69,13 @@ const MyProfile = () => {
           </Box>
           <VStack alignItems={"flex-start"}>
             <Heading as="h3" size="md">
-              {/* {userData.name} */}
+              {user?.username}
             </Heading>
             <Text>
               <EmailIcon
                 display={{ base: "none", md: "inline", lg: "inline" }}
               />{" "}
-              {/* {userData.email} */}
+              {user?.email}
             </Text>
             <Text>
               <PhoneIcon
@@ -109,7 +100,7 @@ const MyProfile = () => {
           <Input
             type="text"
             name="name"
-            // value={name}
+            // value={user?.name}
             placeholder="Name"
             isDisabled={edit}
             onChange={handleChange}
@@ -127,7 +118,7 @@ const MyProfile = () => {
             type="text"
             placeholder="username e.g. abc47"
             name="username"
-            // value={username}
+            value={user?.username}
             isDisabled={edit}
             onChange={handleChange}
           />
@@ -142,9 +133,9 @@ const MyProfile = () => {
           </InputLeftElement>
           <Input
             type="number"
-            placeholder="username e.g. abc47"
-            name="username"
-            // value={age}
+            placeholder="Age"
+            name="age"
+            // value={user?.age}
             isDisabled={edit}
             onChange={handleChange}
           />
@@ -160,7 +151,7 @@ const MyProfile = () => {
           <Input
             type="email"
             name="email"
-            // value={email}
+            value={user?.email}
             isDisabled={edit}
             placeholder="Email address"
             onChange={handleChange}
@@ -181,7 +172,7 @@ const MyProfile = () => {
             onChange={handleChange}
             name="password"
             isDisabled={edit}
-            // value={password}
+            value={user?.password}
           />
           <InputRightElement width="4.5rem">
             <Button
@@ -197,7 +188,7 @@ const MyProfile = () => {
       </FormControl>
       <Button
         colorScheme="green"
-        marginTop={"10px"}
+        marginTop={"30px"}
         loadingText="Submitting"
         isDisabled={edit}
       >

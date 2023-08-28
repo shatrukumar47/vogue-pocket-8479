@@ -28,21 +28,25 @@ import {
   FaSignOutAlt,
   FaRecordVinyl,
 } from "react-icons/fa";
-import dashboardAnime from "../Images/dashboardAnime.gif"
-import { useSelector } from "react-redux";
+import dashboardAnime from "../Images/dashboardAnime.gif";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Logout } from "../Redux/authReducer/action";
 
 const DashboardSidebar = ({ handleProfileTabs }) => {
+  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [tabs, setTabs] = useState({
     profile: false,
     exercise: true,
     TandC: false,
     PP: false,
-    records: false
+    records: false,
   });
   const [target, setTarget] = useState(2000);
 
   //Redux
+  const dispatch = useDispatch();
   const userid = useSelector((store) => store.authReducer.userid);
 
   useEffect(() => {
@@ -57,7 +61,7 @@ const DashboardSidebar = ({ handleProfileTabs }) => {
       exercise: false,
       TandC: false,
       PP: false,
-      records: false
+      records: false,
     });
   };
 
@@ -69,7 +73,7 @@ const DashboardSidebar = ({ handleProfileTabs }) => {
       exercise: true,
       TandC: false,
       PP: false,
-      records: false
+      records: false,
     });
   };
 
@@ -81,7 +85,7 @@ const DashboardSidebar = ({ handleProfileTabs }) => {
       exercise: false,
       TandC: false,
       PP: true,
-      records: false
+      records: false,
     });
   };
 
@@ -93,29 +97,33 @@ const DashboardSidebar = ({ handleProfileTabs }) => {
       exercise: false,
       TandC: true,
       PP: false,
-      records: false
+      records: false,
     });
   };
 
   //handleRecords
-  const handleRecords = ()=>{
+  const handleRecords = () => {
     setTabs({
-        ...tabs,
-        profile: false,
-        exercise: false,
-        TandC: false,
-        PP: false,
-        records: true
-      });
-  }
+      ...tabs,
+      profile: false,
+      exercise: false,
+      TandC: false,
+      PP: false,
+      records: true,
+    });
+  };
 
   //handleLogout
   const handleLogout = () => {
-    console.log("logout");
+    navigate("/");
+    dispatch(Logout());
   };
 
   const handleTarget = () => {
-    axios.post("http://localhost:8080/exercise/add",{targetCalories:target,userid})
+    axios.post("http://localhost:8080/exercise/add", {
+      targetCalories: target,
+      userid,
+    });
   };
 
   return (
@@ -130,13 +138,13 @@ const DashboardSidebar = ({ handleProfileTabs }) => {
           </Button>
         </HStack>
         <FormControl marginTop={"20px"}>
-            <FormLabel>Fill Target</FormLabel>
+          <FormLabel>Fill Target</FormLabel>
           <InputGroup>
             <Input
               type="number"
               value={target}
               _placeholder={{
-                color: 'skyblue'
+                color: "skyblue",
               }}
               placeholder="Enter daily target"
               onChange={(e) => setTarget(e.target.value)}
