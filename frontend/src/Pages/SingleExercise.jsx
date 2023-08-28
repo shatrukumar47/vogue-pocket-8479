@@ -27,6 +27,7 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
+import { getLS } from "../utils/localStorage";
 
 const SingleExercise = ({ el }) => {
   const { calories, category, duration, title, url } = el;
@@ -36,7 +37,7 @@ const SingleExercise = ({ el }) => {
   const [calorieCount, setCalorieCount] = useState(0);
 
   //Redux
-  const userid = useSelector((store) => store.authReducer.userid);
+  const userid = getLS("auth")?.userid || "";
 
   //Toast Feature
   const toast = useToast();
@@ -55,7 +56,7 @@ const SingleExercise = ({ el }) => {
   };
   const handleSave = () => {
     axios
-      .post("http://localhost:8080/exercise/add", {
+      .post("https://fair-teal-chipmunk-tam.cyclic.cloud/exercise/add", {
         exercise: { url: url, calories: calorieCount },
         calories: calorieCount,
         userid: userid,

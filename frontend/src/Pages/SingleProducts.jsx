@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Heading, Text } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+
+
 const SingleProducts = () => {
   const toast = useToast();
   const [count, setCount] = useState(1);
@@ -15,26 +15,12 @@ const SingleProducts = () => {
   const dispatch = useDispatch();
   const product = useSelector((store) => store.productReducer.data);
 
-  localStorage.setItem("id", id);
-  let idnew = localStorage.getItem("id");
-  let CartData = [];
-  
-  const newdata = {
-    _id: "64e8af345898846d81c3e1b0",
-    name: "Nutrabay Gold 100% Whey Protein Isolate",
-    image: "https://cdn.nutrabay.com/wp-content/uploads/2023/06/NB-NUT-1013-05-01.jpg",
-    price: 1999,
-    rating: 3.7,
-    category: "WheyProtein",
-    brand: "NUTRABAY"
-  }
   useEffect(() => {
-    // const data = product?.find((el) => el.id === +idnew);
-
+    const newdata = product?.find((el) => el._id === id);
     setData(newdata);
   }, []);
 
-  let finalPrice = data?.price
+  let finalPrice = data?.price;
   let saveprice = data?.price_cut - data?.price;
 
   const handleCart = () => {
@@ -51,10 +37,11 @@ const SingleProducts = () => {
       quantity: count,
     };
 
-    CartData.push(cartdata)
+    const CartData = JSON.parse(localStorage.getItem("cartdata")) || [];
+    CartData.push(cartdata);
     localStorage.setItem("cartdata", JSON.stringify(CartData));
   };
-  console.log(data)
+
   return (
     <div>
       <DIV>
@@ -130,9 +117,7 @@ const SingleProducts = () => {
           </div>
           <div className="cutmrp">
             <p>You Save: </p>
-            <Text color={"red.600"}>
-              ₹({20}%)
-            </Text>
+            <Text color={"red.600"}>₹({20}%)</Text>
           </div>
           <Text className="opacity">Inclusive of all taxes </Text>
           <br />
@@ -167,9 +152,11 @@ const SingleProducts = () => {
   );
 };
 export default SingleProducts;
+
 const DIV = styled.div`
   display: flex;
-  width: 100%;
+  width: 90%;
+  margin: auto;
   height: 100%;
   /* border: 1px solid red; */
   font-weight: 400;
@@ -210,7 +197,6 @@ const DIV = styled.div`
     display: flex;
     /* border: 1px solid gray;  */
     position: relative;
-
   }
   .first img {
     width: 100%;
@@ -229,7 +215,7 @@ const DIV = styled.div`
   .fit {
     font-size: 23px;
     opacity: 0.5;
-    color:#e41e00;
+    color: #e41e00;
   }
   .fa-sharp,
   .fa-solid {

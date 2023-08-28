@@ -1,14 +1,14 @@
 import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../actionTypes";
 import axios from "axios";
 
-
+const baseURL = "https://fair-teal-chipmunk-tam.cyclic.cloud";
 
 //Login
 export const login = (user)=> async (dispatch) => {
   try {
     dispatch({type:LOGIN_REQUEST})
     try {
-      const res = await axios.post(`http://localhost:8080/users/login`,user);
+      const res = await axios.post(`${baseURL}/users/login`,user);
       console.log(res)
       dispatch({type:LOGIN_SUCCESS, payload:res?.data})
 

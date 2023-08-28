@@ -35,7 +35,7 @@ const Product = () => {
   const FetchData = () => {
     dispatch({ type: PRODUCT_REQUEST });
     axios
-      .get("http://localhost:8080/products", paramsObj)
+      .get("https://fair-teal-chipmunk-tam.cyclic.cloud/products", paramsObj)
       .then((res) => {
         dispatch({ type: PRODUCT_SUCCESS, payload: res?.data });
       })

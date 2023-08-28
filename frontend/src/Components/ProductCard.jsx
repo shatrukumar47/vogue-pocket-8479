@@ -14,20 +14,18 @@ import {
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import "./ProductCard.css";
-import { useNavigate } from "react-router-dom";
-export const ProductCard = ({brand,image,name,price,rating,id,}) => {
-  const navigate=useNavigate()
-   const handleRedirect=()=>{
-       navigate()
-   }
+import { Link, useNavigate } from "react-router-dom";
+
+
+export const ProductCard = ({ brand, image, name, price, rating, _id }) => {
+  const navigate = useNavigate();
   return (
     <Card
       maxW="sm"
       boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
       className="image-hover"
-     
     >
-      <CardBody  >
+      <CardBody>
         <Image
           src={image}
           alt={name}
@@ -36,19 +34,10 @@ export const ProductCard = ({brand,image,name,price,rating,id,}) => {
           className="image"
           margin={"-10px auto 10px auto"}
           objectFit={"cover"}
-          
         />
-        <Button
-          width={"200px"}
-          colorScheme="gray"
-          border={"1px solid black"}
-          fontWeight={"bold"}
-          color={"red.500"}
-          className="hover-button"
-          onClick={handleRedirect}
-        >
+        <Link to={`/products/${_id}`} width={"200px"}>
           View Product
-        </Button>
+        </Link>
         <Stack mt="2" spacing="3">
           <Text color={"#00163A"} fontWeight={"semibold"} size="xs">
             {name}
@@ -64,7 +53,7 @@ export const ProductCard = ({brand,image,name,price,rating,id,}) => {
           <Text marginRight={"100%"} color="green.500" fontSize="xl">
             {`₹${price}`}
           </Text>
-          <Box className="rating"  alignItems="center">
+          <Box className="rating" alignItems="center">
             {Array.from({ length: Math.floor(rating) }).map((_, index) => (
               <StarIcon key={index} color="red.500" />
             ))}
@@ -85,10 +74,12 @@ export const ProductCard = ({brand,image,name,price,rating,id,}) => {
             )}
           </Box>
           <Box className="mobilerating">
-            {rating} <StarIcon color="red.500" marginLeft={'3px'} marginTop={'5px'} />
+            {rating}{" "}
+            <StarIcon color="red.500" marginLeft={"3px"} marginTop={"5px"} />
           </Box>
         </ButtonGroup>
       </CardFooter>
+       
     </Card>
   );
 };

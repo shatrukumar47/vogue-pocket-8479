@@ -120,7 +120,7 @@ const DashboardSidebar = ({ handleProfileTabs }) => {
   };
 
   const handleTarget = () => {
-    axios.post("http://localhost:8080/exercise/add", {
+    axios.post("https://fair-teal-chipmunk-tam.cyclic.cloud/exercise/add", {
       targetCalories: target,
       userid,
     });
