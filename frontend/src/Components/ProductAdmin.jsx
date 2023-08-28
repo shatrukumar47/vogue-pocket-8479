@@ -58,6 +58,8 @@ const ProductAdmin = () => {
   const totalPages = useSelector((store) => store.productReducer.totalPages);
   const isError = useSelector((store) => store.productReducer.isError);
 
+  
+
   useEffect(() => {
     dispatch(getProductAction(page, 12));
   }, [page]);

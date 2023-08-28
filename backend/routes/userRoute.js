@@ -62,8 +62,10 @@ route.post("/login", async (req, res) => {
         res.status(200).send({
           msg: "Logged-in Successfully",
           accessToken: accesstoken,
-          user: User?.username,
+          username: User?.username,
           userid: User?._id,
+          user: User,
+          isAdmin: User?.isAdmin ? true : false
         });
       } else {
         res.status(200).send({ msg: "Wrong Password !!" });

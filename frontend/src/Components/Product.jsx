@@ -55,9 +55,9 @@ const Product = () => {
   return (
     <>
       <SimpleGrid
-        width={"95%"}
+        width={"96%"}
         margin={"auto"}
-        spacing={8}
+        spacing={3}
         columns={{ sm: 1, md: 2, lg: 3 }}
       >
         {data?.map((ele) => (
