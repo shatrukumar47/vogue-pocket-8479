@@ -48,10 +48,11 @@ const LoginPage = () => {
     if(user && password){
       dispatch(login(user)).then((res)=>{
         if(res){
-          if(location?.state===null){
+          console.log(location?.state?.from)
+          if (location?.state?.from) {
+            navigate(location.state.from, { replace: true });
+          } else {
             navigate("/");
-          }else{
-            navigate(location.state, { replace: true });
           }
         }
       })
