@@ -8,11 +8,13 @@ import {
 } from "../actionTypes";
 import axios from "axios";
 
+const baseURL = "https://fair-teal-chipmunk-tam.cyclic.cloud";
+
 //GET Product
 export const getProductAction =(page = 1, limit = 12) => (dispatch) => {
     dispatch({ type: PRODUCT_REQUEST });
     axios
-      .get(`http://localhost:8080/products?page=${page}&limit=${limit}`)
+      .get(`${baseURL}/products?page=${page}&limit=${limit}`)
       .then((res) => {
         dispatch({ type: PRODUCT_SUCCESS, payload: res?.data });
       })
@@ -26,7 +28,7 @@ export const getProductAction =(page = 1, limit = 12) => (dispatch) => {
 export const productAddAction = (product) => (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
   return axios
-    .post("http://localhost:8080/products/addProduct", product)
+    .post(`${baseURL}/products/addProduct`, product)
     .then((res) => {
       console.log(res);
       dispatch({ type: PRODUCT_ADD_SUCCESS });
@@ -41,7 +43,7 @@ export const productAddAction = (product) => (dispatch) => {
 export const productUpdateAction = (item) => (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
   return axios
-    .patch(`http://localhost:8080/products/update/${item?._id}`, item)
+    .patch(`${baseURL}/products/update/${item?._id}`, item)
     .then((res) => {
       dispatch({ type: PRODUCT_UPDATE_SUCCESS });
     })
@@ -55,7 +57,7 @@ export const productUpdateAction = (item) => (dispatch) => {
 export const productDeleteAction = (id) => (dispatch) => {
   dispatch({ type: PRODUCT_REQUEST });
   return axios
-    .delete(`http://localhost:8080/products/delete/${id}`)
+    .delete(`${baseURL}/products/delete/${id}`)
     .then((res) => {
       dispatch({ type: PRODUCT_DELETE_SUCCESS });
     })

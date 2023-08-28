@@ -6,6 +6,7 @@ import { getLS } from "../utils/localStorage";
 const PrivateRoute = ({ children }) => {
   const location = useLocation();
   console.log(location);
+  
   //Local Storage
   const isAuth = getLS("auth")?.isAuth || false;
 

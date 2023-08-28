@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Box, Text, Flex, Grid, GridItem, Button, VStack } from "@chakra-ui/react";
 import UserSingleExercise from "./UserSingleExercise";
-import { useSelector } from "react-redux";
 import { FaArrowDown } from "react-icons/fa";
+import { getLS } from "../utils/localStorage";
 
 const UserExercise = () => {
   const [exerciseData, setExerciseData] = useState({});
 
   //Redux
-  const userid = useSelector((store) => store.authReducer.userid);
+  const userid = getLS("auth")?.userid || "";
 
   function getData() {
     const requestData = {
@@ -17,7 +17,7 @@ const UserExercise = () => {
     };
 
     axios
-      .post("http://localhost:8080/exercise/", requestData)
+      .post("https://fair-teal-chipmunk-tam.cyclic.cloud/exercise/", requestData)
       .then((res) => {
         if(res?.data?.data){
             setExerciseData(res.data.data);

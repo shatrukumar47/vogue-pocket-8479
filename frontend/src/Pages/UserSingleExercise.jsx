@@ -16,16 +16,17 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { FaTrashAlt } from "react-icons/fa";
+import { getLS } from "../utils/localStorage";
 
 const UserSingleExercise = ({ el, date, onExerciseRemoved }) => {
   const { calories, _id, url } = el;
 
   //Redux
-  const userid = useSelector((store) => store.authReducer.userid);
+  const userid = getLS("auth")?.userid || "";
 
   const handleRemove = () => {
     axios
-      .post(`http://localhost:8080/exercise/delete/${userid}`, {
+      .post(`https://fair-teal-chipmunk-tam.cyclic.cloud/exercise/delete/${userid}`, {
         exerciseId: _id,
       })
       .then(() => {

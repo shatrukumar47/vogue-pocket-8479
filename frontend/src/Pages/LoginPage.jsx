@@ -48,7 +48,6 @@ const LoginPage = () => {
     if(user && password){
       dispatch(login(user)).then((res)=>{
         if(res){
-          console.log(location?.state?.from)
           if (location?.state?.from) {
             navigate(location.state.from, { replace: true });
           } else {

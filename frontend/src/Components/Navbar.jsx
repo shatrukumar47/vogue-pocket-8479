@@ -26,8 +26,8 @@ const Navbar = () => {
   //Redux
   const dispatch = useDispatch();
   const isAuth = getLS("auth")?.isAuth || false;
-  const username = getLS("auth")?.username || ""
-  const isAdmin = getLS("auth")?.isAdmin || false
+  const username = getLS("auth")?.username || "";
+  const isAdmin = getLS("auth")?.isAdmin || false;
 
   //Navbar Sticky
   useEffect(() => {
@@ -84,71 +84,68 @@ const Navbar = () => {
               </Link>
             )}
           </HStack>
-          {
-            isAuth ? (
-              <HStack
-                spacing={{ base: "5px", md: "10px", lg: "20px" }}
-                marginRight={"20px"}
+          {isAuth ? (
+            <HStack
+              spacing={{ base: "5px", md: "10px", lg: "20px" }}
+              marginRight={"20px"}
+            >
+              <Avatar
+                width={"50px"}
+                name={username.toString()}
+                src="https://bit.ly/broken-link"
+              />
+              <Button
+                color={"white"}
+                bg={"#e02c1f"}
+                variant={"solid"}
+                borderRadius={"50px"}
+                _hover={{
+                  bg: "#b5271d",
+                }}
+                boxShadow={boxshadow}
+                onClick={handleLogout}
               >
-                <Avatar
-                  width={"50px"}
-                  name={username.toString()}
-                  src="https://bit.ly/broken-link"
-                />
-                <Button
-                  color={"white"}
-                  bg={"#e02c1f"}
-                  variant={"solid"}
-                  borderRadius={"50px"}
-                  _hover={{
-                    bg: "#b5271d",
-                  }}
-                  boxShadow={boxshadow}
-                  onClick={handleLogout}
-                >
-                  Log out
-                </Button>
-              </HStack>
-            ) : (
-              <HStack
-                spacing={{ base: "10px", md: "10px", lg: "20px" }}
-                marginRight={{ base: "0px", md: "20px", lg: "20px" }}
+                Log out
+              </Button>
+            </HStack>
+          ) : (
+            <HStack
+              spacing={{ base: "10px", md: "10px", lg: "20px" }}
+              marginRight={{ base: "0px", md: "20px", lg: "20px" }}
+            >
+              <Button
+                color={"white"}
+                bg={"#e02c1f"}
+                variant={"solid"}
+                borderRadius={"50px"}
+                _hover={{
+                  bg: "#b5271d",
+                }}
+                p={{ base: "10px", md: "20px", lg: "20px" }}
+                boxShadow={{ base: "", md: boxshadow, lg: boxshadow }}
+                onClick={() => navigate("/login")}
               >
-                <Button
-                  color={"white"}
-                  bg={"#e02c1f"}
-                  variant={"solid"}
-                  borderRadius={"50px"}
-                  _hover={{
-                    bg: "#b5271d",
-                  }}
-                  p={{ base: "10px", md: "20px", lg: "20px" }}
-                  boxShadow={{ base: "", md: boxshadow, lg: boxshadow }}
-                  onClick={() => navigate("/login")}
-                >
-                  Log in
-                </Button>
-                <Button
-                  colorScheme="blue"
-                  borderRadius={"50px"}
-                  _hover={{
-                    bg: "skyblue",
-                  }}
-                  p={{ base: "10px", md: "20px", lg: "20px" }}
-                  boxShadow={{ base: "", md: boxshadow, lg: boxshadow }}
-                  onClick={() => navigate("/signup")}
-                >
-                  Sign up
-                </Button>
-              </HStack>
-            )
-
-            //   <Link to="/cart">
-            //   <Center fontSize="15px" flexDirection="column" cursor="pointer">
-            //     <AiOutlineShoppingCart size="35px"/>
-            //   </Center>
-            // </Link>
-          }
+                Log in
+              </Button>
+              <Button
+                colorScheme="blue"
+                borderRadius={"50px"}
+                _hover={{
+                  bg: "skyblue",
+                }}
+                p={{ base: "10px", md: "20px", lg: "20px" }}
+                boxShadow={{ base: "", md: boxshadow, lg: boxshadow }}
+                onClick={() => navigate("/signup")}
+              >
+                Sign up
+              </Button>
+            </HStack>
+          )}
+          <Link to="/cart">
+            <Center fontSize="15px" flexDirection="column" cursor="pointer">
+              <AiOutlineShoppingCart size="35px" />
+            </Center>
+          </Link>
         </HStack>
       </Container>
     </Box>
