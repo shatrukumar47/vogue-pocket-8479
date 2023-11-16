@@ -16,7 +16,7 @@ Buy Products: Explore an extensive selection of fitness products including prote
 
 ## Deployment Link
 
-[netlify](https://dancing-sundae-d284dd.netlify.app/)
+[vercel](https://frontend-blush-six.vercel.app)
 
 ###
 
