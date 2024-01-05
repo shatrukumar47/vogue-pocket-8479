@@ -26,7 +26,7 @@ const UserSingleExercise = ({ el, date, onExerciseRemoved }) => {
 
   const handleRemove = () => {
     axios
-      .post(`https://fair-teal-chipmunk-tam.cyclic.cloud/exercise/delete/${userid}`, {
+      .post(`https://coffee-millipede-suit.cyclic.app/exercise/delete/${userid}`, {
         exerciseId: _id,
       })
       .then(() => {

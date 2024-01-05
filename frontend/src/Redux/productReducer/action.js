@@ -8,7 +8,7 @@ import {
 } from "../actionTypes";
 import axios from "axios";
 
-const baseURL = "https://fair-teal-chipmunk-tam.cyclic.cloud";
+const baseURL = "https://coffee-millipede-suit.cyclic.app/";
 
 //GET Product
 export const getProductAction =(page = 1, limit = 12) => (dispatch) => {

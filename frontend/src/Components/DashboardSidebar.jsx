@@ -120,7 +120,7 @@ const DashboardSidebar = ({ handleProfileTabs }) => {
   };
 
   const handleTarget = () => {
-    axios.post("https://fair-teal-chipmunk-tam.cyclic.cloud/exercise/add", {
+    axios.post("https://coffee-millipede-suit.cyclic.app/exercise/add", {
       targetCalories: target,
       userid,
     });

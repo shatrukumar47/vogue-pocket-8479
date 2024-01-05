@@ -17,7 +17,7 @@ const UserExercise = () => {
     };
 
     axios
-      .post("https://fair-teal-chipmunk-tam.cyclic.cloud/exercise/", requestData)
+      .post("https://coffee-millipede-suit.cyclic.app/exercise/", requestData)
       .then((res) => {
         if(res?.data?.data){
             setExerciseData(res.data.data);
