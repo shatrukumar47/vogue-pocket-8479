@@ -8,7 +8,7 @@ import {
   EXERCISE_UPDATE_SUCCESS,
 } from "../actionTypes";
 
-const baseURL = "https://fair-teal-chipmunk-tam.cyclic.cloud";
+const baseURL = "https://coffee-millipede-suit.cyclic.app/";
 
 //GET Exercise
 export const getExercisesAction =

@@ -56,7 +56,7 @@ const SingleExercise = ({ el }) => {
   };
   const handleSave = () => {
     axios
-      .post("https://fair-teal-chipmunk-tam.cyclic.cloud/exercise/add", {
+      .post("https://coffee-millipede-suit.cyclic.app/exercise/add", {
         exercise: { url: url, calories: calorieCount },
         calories: calorieCount,
         userid: userid,

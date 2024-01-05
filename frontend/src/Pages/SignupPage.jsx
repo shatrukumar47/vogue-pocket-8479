@@ -69,7 +69,7 @@ const SignupPage = () => {
           });
         } else {
           //dispatcher goes here
-          axios.post(`https://fair-teal-chipmunk-tam.cyclic.cloud/users/register`,user).then((res)=>{
+          axios.post(`https://coffee-millipede-suit.cyclic.app/users/register`,user).then((res)=>{
             console.log(res.data)
           })
           toast({
